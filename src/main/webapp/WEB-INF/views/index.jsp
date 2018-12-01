@@ -1,16 +1,27 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: wyj
-  Date: 2018/12/1
-  Time: 9:45
-  To change this template use File | Settings | File Templates.
---%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
     <title>Title</title>
+    <script src="/static/jquery/jquery-3.3.1.min.js"></script>
+    <script src="/static/vue/vue.js"></script>
 </head>
 <body>
-<h1>Hello worldddd</h1>
+<div id="app">
+
+</div>
+<script>
+var app = new Vue({
+    el: '#app',
+    data: {
+
+    },
+    methods: {
+
+    },
+    mounted: function () {
+
+    }
+})
+</script>
+
 </body>
 </html>
