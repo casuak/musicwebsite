@@ -1,15 +1,15 @@
-package com.glf.jxframe.modules.music.search;
+package com.glf.jxframe.web.content;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 @Controller
-@RequestMapping("music/search")
+@RequestMapping("content/search")
 public class SearchController {
 
     @RequestMapping(value = "", method = RequestMethod.GET)
     public String index(){
-        return "modules/music/search/search";
+        return "content/search";
     }
 }

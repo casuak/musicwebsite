@@ -1,4 +1,4 @@
-package com.glf.jxframe.modules.music.frame;
+package com.glf.jxframe.web;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -10,7 +10,7 @@ public class FrameController {
 
     @RequestMapping(value = "", method = RequestMethod.GET)
     public String frame(){
-        return "modules/music/frame/frame";
+        return "frame";
     }
 
 }

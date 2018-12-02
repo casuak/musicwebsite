@@ -1,14 +1,14 @@
-package com.glf.jxframe.modules.music.findMusic;
+package com.glf.jxframe.web.content;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping("music/findMusic")
+@RequestMapping("content/findMusic")
 public class FindMusicController {
 
     @RequestMapping("")
     public String index(){
-        return "modules/music/findMusic/findMusic";
+        return "content/findMusic";
     }
 }
