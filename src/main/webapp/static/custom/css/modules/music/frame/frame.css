@@ -1,0 +1,19 @@
+/* 顶部导航栏 */
+.layout-nav {
+    float: right;
+    right: 20px;
+}
+
+/* 边栏 */
+.sider {
+    background: white;
+}
+
+/* 右边内容 */
+.right {
+    padding: 0 24px 24px;
+}
+
+iframe{
+    border: 0px;
+}

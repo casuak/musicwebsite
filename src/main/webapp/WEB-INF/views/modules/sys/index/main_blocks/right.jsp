@@ -1,3 +1,0 @@
-<body>
-Right
-</body>
