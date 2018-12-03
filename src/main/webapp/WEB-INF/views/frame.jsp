@@ -29,10 +29,28 @@
             <Layout>
                 <Sider hide-trigger class="sider">
                     <i-Menu theme="light" width="auto" @on-select="changeContent">
-                        <Menu-Item v-for="item in functions" :name="item.url" :key="item.url">
-                            <Icon :type="item.iconType"></Icon>
-                            {{ item.text }}
+                        <Menu-Item name="content/search">
+                            <Icon type="ios-navigate"></Icon>
+                            搜索
                         </Menu-Item>
+                        <Menu-Item name="content/findMusic">
+                            <Icon type="ios-navigate"></Icon>
+                            发现音乐
+                        </Menu-Item>
+                        <Menu-Group title="我的音乐">
+                            <Menu-Item name="content/recentPlay">
+                                <Icon type="ios-navigate"></Icon>
+                                最近播放
+                            </Menu-Item>
+                            <Menu-Item name="content/myMusicCloud">
+                                <Icon type="ios-navigate"></Icon>
+                                我的音乐云盘
+                            </Menu-Item>
+                            <Menu-Item name="content/myCollection">
+                                <Icon type="ios-navigate"></Icon>
+                                我的收藏
+                            </Menu-Item>
+                        </Menu-Group>
                     </i-Menu>
                 </Sider>
                 <Layout class="right">
@@ -48,20 +66,7 @@
         el: '#app',
         data: {
             // 与iframe的src绑定
-            contentUrl: '',
-            // 左功能栏
-            functions: [
-                {
-                    url: 'content/search',
-                    iconType: 'ios-navigate',
-                    text: '搜索'
-                },
-                {
-                    url: 'content/findMusic',
-                    iconType: 'ios-navigate',
-                    text: '发现音乐'
-                }
-            ]
+            contentUrl: ''
         },
         watch: {},
         methods: {
@@ -70,7 +75,8 @@
             }
         },
         mounted: function () {
-            this.contentUrl = this.functions[0].url
+            // 设置内容的初始页
+            this.changeContent('content/search');
         }
     });
 </script>
