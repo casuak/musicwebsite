@@ -10,6 +10,7 @@ public class FrameController {
 
     @RequestMapping(value = "", method = RequestMethod.GET)
     public String frame(){
+        System.out.println();
         return "frame";
     }
 
