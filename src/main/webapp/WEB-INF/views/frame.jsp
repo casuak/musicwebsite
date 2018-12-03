@@ -11,11 +11,15 @@
 
         /* 右边内容 */
         .right {
-            padding: 0 24px 24px;
+            padding: 0;
         }
 
         iframe {
             border: 0px;
+        }
+
+        .title{
+            color: white;
         }
     </style>
 </head>
@@ -24,7 +28,9 @@
     <div class="layout">
         <Layout>
             <i-Header>
-                <i-Menu mode="horizontal" theme="dark" active-name="1"></i-Menu>
+                <i-Menu mode="horizontal" theme="dark" active-name="1">
+                    <div class="title">网易云音乐</div>
+                </i-Menu>
             </i-Header>
             <Layout>
                 <Sider hide-trigger class="sider">
