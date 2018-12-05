@@ -2,19 +2,42 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.glf.jxframe.dao.SongDao">
     <select id="list" resultType="com.glf.jxframe.entity.Song">
-        select * from song
+        select * from entity_song
     </select>
 
-    <select id="getSongListByKey" resultType="com.glf.jxframe.entity.Song">
-        select a.* from
-          song a
+    <resultMap id="songBean" type="com.glf.jxframe.entity.Song">
+        <id column="id" property="id"/>
+        <result column="name" property="name"/>
+        <result column="albumName" property="albumName"/>
+        <result column="duration" property="duration"/>
+        <collection property="authorList" ofType="com.glf.jxframe.entity.Author">
+            <id column="author_id" property="id"/>
+            <result column="author_nickName" property="nickName"/>
+            <result column="author_realName" property="realName"/>
+        </collection>
+        <collection property="albumList" ofType="com.glf.jxframe.entity.Album">
+            <id column="album_id" property="id"/>
+            <result column="album_name" property="name"/>
+        </collection>
+    </resultMap>
+
+    <select id="getSongListByKey" resultMap="songBean">
+        select
+          a.id as id,
+          a.name as name,
+          a.duration as duration,
+          c.id as author_id,
+          c.nickName as author_nickName,
+          c.realName as author_realName,
+          d.id as album_id,
+          d.name as album_name
+        from
+          entity_song a
+          left join map_song_author b on a.id = b.song_id
+          left join entity_author c on c.id = b.author_id
+          left join entity_album d on d.id = a.album_id
         where
-          -- 歌曲名匹配
-          a.name like concat('%', #{0}, '%') or
-          -- 作者别名匹配
-          (select b.nickName from author b where b.id = a.author_id) like concat('%', #{0}, '%') or
-          -- 作者真名匹配
-          (select b.realName from author b where b.id = a.author_id) like concat('%', #{0}, '%')
+          a.name like concat('%', #{0}, '%')
     </select>
 
 </mapper>

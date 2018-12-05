@@ -21,8 +21,28 @@
             display: none;
         }
 
+        .ivu-table td, .ivu-table th{
+            border-bottom: 0px;
+        }
+
         .ivu-tabs-content {
             height: calc(100% - 52px);
+        }
+
+        .column-song-name {
+            width: 40%;
+        }
+
+        .column-song-author {
+            width: 25%;
+        }
+
+        .column-song-album {
+            width: 25%;
+        }
+
+        .column-song-duration {
+            width: 10%;
         }
     </style>
 </head>
@@ -33,7 +53,7 @@
                  placeHolder="搜索音乐、歌手、歌词、用户"
                  @on-click="search" @on-enter="search"></i-input>
     </div>
-    <div style="height: calc(100% - 120px);margin-left: 40px;margin-top: 20px;margin-right: 40px;">
+    <div style="height: calc(100% - 120px);margin-left: 40px;margin-top: 15px;margin-right: 40px;">
         <row v-show="!showList" style="height: 100%;">
             <i-col span="11">
                 <div span="12" class="subTitle">热门搜索</div>
@@ -95,14 +115,16 @@
                 <tab-pane label="单曲" :name="tabNames[0]" style="height: 100%;">
                     <div class="scroll-bar" style="height: 100%;overflow-y: scroll;">
                         <div style="margin-right: 31px;">
-                            <i-table stripe :columns="tables.song.columns" :data="tables.song.data"></i-table>
+                            <i-table :loading="tables.song.loading" stripe :columns="tables.song.columns"
+                                     :data="tables.song.data"></i-table>
                         </div>
                     </div>
                 </tab-pane>
                 <tab-pane label="歌手" :name="tabNames[1]" style="height: 100%;">
                     <div class="scroll-bar" style="height: 100%;overflow-y: scroll;">
                         <div style="margin-right: 31px;">
-                            <i-table stripe :columns="tables.author.columns" :data="tables.author.data"></i-table>
+                            <i-table :loading="tables.author.loading" stripe :columns="tables.author.columns"
+                                     :data="tables.author.data"></i-table>
                         </div>
                     </div>
                 </tab-pane>
@@ -118,7 +140,7 @@
         el: '#app',
         data: {
             // 热门搜索列表
-            searchPopular: ['起风了', '朱正廷', 'Alan Walker新歌', 'RADWIMPs', '陈绮贞新歌', '国风美少年', '艾热新歌', 'John J', '郭顶山形瑞秋合作新曲'],
+            searchPopular: ['歌', '起风了', '朱正廷', 'Alan Walker新歌', 'RADWIMPs', '陈绮贞新歌', '国风美少年', '艾热新歌', 'John J', '郭顶山形瑞秋合作新曲'],
             // 搜索历史
             searchHistory: [],
             // 搜索关键词
@@ -135,177 +157,99 @@
                     columns: [
                         {
                             title: '歌曲名称',
-                            key: 'name'
-                        },
-                        {
-                            title: '专辑名称',
-                            key: 'album'
+                            key: 'name',
+                            className: 'column-song-name'
                         },
                         {
                             title: '歌手',
-                            key: 'singer'
+                            key: 'author',
+                            className: 'column-song-author'
+                        },
+                        {
+                            title: '专辑名称',
+                            key: 'album',
+                            className: 'column-song-album'
                         },
                         {
                             title: '时长',
-                            key: 'time'
+                            key: 'duration',
+                            className: 'column-song-duration'
                         }
                     ],
-                    data: [
-                        {
-                            name: 'All this time',
-                            album: 'Waking up',
-                            singer: 'OneRepublic',
-                            time: '4:05'
-                        },
-                        {
-                            name: 'A Change of Heart',
-                            album: 'I Like it When You Sleep,For You Are So Beautiful Yet So Unaware of It',
-                            singer: 'The 1975',
-                            time: '4:35'
-                        },
-                        {
-                            name: '将军',
-                            album: '七里香',
-                            singer: '周杰伦',
-                            time: '3:22'
-                        },
-                        {
-                            name: '夜的第七章',
-                            album: '依然范特西',
-                            singer: '周杰伦',
-                            time: '3:49'
-                        },
-                        {
-                            name: '夜的第七章',
-                            album: '依然范特西',
-                            singer: '周杰伦',
-                            time: '3:49'
-                        },
-                        {
-                            name: '将军',
-                            album: '七里香',
-                            singer: '周杰伦',
-                            time: '3:22'
-                        },
-                        {
-                            name: '将军',
-                            album: '七里香',
-                            singer: '周杰伦',
-                            time: '3:22'
-                        },
-                        {
-                            name: '将军',
-                            album: '七里香',
-                            singer: '周杰伦',
-                            time: '3:22'
-                        },
-                        {
-                            name: '将军',
-                            album: '七里香',
-                            singer: '周杰伦',
-                            time: '3:22'
-                        },
-                        {
-                            name: '将军',
-                            album: '七里香',
-                            singer: '周杰伦',
-                            time: '3:22'
-                        },
-                        {
-                            name: '将军',
-                            album: '七里香',
-                            singer: '周杰伦',
-                            time: '3:22'
-                        },
-                        {
-                            name: '将军',
-                            album: '七里香',
-                            singer: '周杰伦',
-                            time: '3:22'
-                        },
-                        {
-                            name: '将军',
-                            album: '七里香',
-                            singer: '周杰伦',
-                            time: '3:22'
-                        },
-                        {
-                            name: '将军',
-                            album: '七里香',
-                            singer: '周杰伦',
-                            time: '3:22'
-                        },
-                        {
-                            name: '将军',
-                            album: '七里香',
-                            singer: '周杰伦',
-                            time: '3:22'
-                        },
-                        {
-                            name: '将军',
-                            album: '七里香',
-                            singer: '周杰伦',
-                            time: '3:22'
-                        },
-                        {
-                            name: '将军',
-                            album: '七里香',
-                            singer: '周杰伦',
-                            time: '3:22'
-                        },
-                        {
-                            name: '将军',
-                            album: '七里香',
-                            singer: '周杰伦',
-                            time: '3:22'
-                        },
-                        {
-                            name: '将军',
-                            album: '七里香',
-                            singer: '周杰伦',
-                            time: '3:22'
-                        },
-                        {
-                            name: 'A Change of Heart',
-                            album: 'I Like it When You Sleep,For You Are So Beautiful Yet So Unaware of It',
-                            singer: 'The 1975',
-                            time: '4:35'
-                        }
-                    ]
+                    data: [],
+                    loading: false
                 },
                 author: {
                     columns: [],
-                    data: []
+                    data: [],
+                    loading: false
                 }
-            },
+            }
         },
         watch: {
             searchKey: function (newVal, oldVal) {
                 if (newVal.length == 0) {
                     this.search();
                 }
+            },
+            currentTab: function (newVal, oldVal) {
+                this.search();
             }
         },
         methods: {
             clickSearchPopular: function (event) {
                 this.searchKey = event.srcElement.innerText;
                 this.search();
-            }
-            ,
+            },
             search: function () {
                 if (this.searchKey.length == 0) {
-                    this.showList = false;
+                    this.showList = false; // 显示历史搜索和热门搜索
+                    return;
                 }
                 else {
-                    this.showList = true;
+                    this.showList = true; // 显示搜索结果
                 }
-                var url = "/content/search/list";
+                var url = "/content/search/";
                 var data = {
                     key: this.searchKey
                 };
-                $.post(url, data, function (d) {
-                    console.log(d);
-                })
+                var callback = function () {
+                    alert("error");
+                };
+                switch (this.currentTab) {
+                    case this.tabNames[0]:
+                        callback = this.callback_getSongList;
+                        url += "getSongList";
+                        this.tables.song.loading = true;
+                        break;
+                    case this.tabNames[1]:
+                        callback = this.callback_getAuthorList;
+                        url += "getAuthorList";
+                        this.tables.author.loading = true;
+                        break;
+                }
+                $.post(url, data, callback);
+            },
+            callback_getSongList: function (d) {
+                console.log(d);
+                for (var i = 0; i < d.length; i++) {
+                    if (d[i].albumList.length > 0) {
+                        d[i].album = d[i].albumList[0]['name'];
+                    }
+                    if (d[i].authorList.length > 0) {
+                        d[i].author = d[i].authorList[0].nickName;
+                    }
+                    for (var j = 1; j < d[i].authorList.length; j++) {
+                        d[i].author += '/' + d[i].authorList[j].nickName;
+                    }
+                }
+                this.tables.song.data = d;
+                this.tables.song.loading = false;
+            },
+            callback_getAuthorList: function (d) {
+                console.log(d);
+                // this.tables.song.data = d;
+                this.tables.author.loading = false;
             }
         },
         mounted: function () {

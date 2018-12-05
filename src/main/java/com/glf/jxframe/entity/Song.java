@@ -1,6 +1,7 @@
 package com.glf.jxframe.entity;
 
 import java.sql.Time;
+import java.util.List;
 
 public class Song {
 
@@ -12,9 +13,9 @@ public class Song {
 
     private Time duration;
 
-    private String author_id;
-
-    private String album_id;
+    // 以下是非数据库字段
+    private List<Author> authorList; // 歌手列表
+    private List<Album> albumList; // 所属专辑
 
     public String getId() {
         return id;
@@ -48,19 +49,19 @@ public class Song {
         this.duration = duration;
     }
 
-    public String getAlbum_id() {
-        return album_id;
+    public List<Author> getAuthorList() {
+        return authorList;
     }
 
-    public void setAlbum_id(String album_id) {
-        this.album_id = album_id;
+    public void setAuthorList(List<Author> authorList) {
+        this.authorList = authorList;
     }
 
-    public String getAuthor_id() {
-        return author_id;
+    public List<Album> getAlbumList() {
+        return albumList;
     }
 
-    public void setAuthor_id(String author_id) {
-        this.author_id = author_id;
+    public void setAlbumList(List<Album> albumList) {
+        this.albumList = albumList;
     }
 }
