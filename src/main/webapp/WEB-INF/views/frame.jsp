@@ -1,13 +1,10 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
+<!DOCTYPE html>
 <html>
 <head>
     <title>网易云音乐</title>
     <%@include file="/WEB-INF/views/include/blankHead.jsp" %>
     <style>
-        html {
-            overflow-y: hidden;
-        }
-
         iframe {
             border: 0;
             width: 100%;
@@ -47,8 +44,8 @@
     </style>
 </head>
 <body>
-<div id="app" v-cloak>
-    <div>
+<div id="app" v-cloak style="height: 100%">
+    <div style="height: 100%">
         <div class="top">
             <div class="title">网易云音乐</div>
         </div>

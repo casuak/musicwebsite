@@ -1,12 +1,33 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
 <html>
 <head>
-    <title>网易云音乐</title>
-    <%@include file="/WEB-INF/views/include/blankHead.jsp" %>
+    <meta charset="utf-8">
+    <title>iview example</title>
+    <%--<link rel="stylesheet" type="text/css" href="http://unpkg.com/iview/dist/styles/iview.css">--%>
+    <%--<script type="text/javascript" src="http://vuejs.org/js/vue.min.js"></script>--%>
+    <%--<script type="text/javascript" src="http://unpkg.com/iview/dist/iview.min.js"></script>--%>
+
+    <link rel="stylesheet" href="/static/iview/styles/iview.css"/>
+    <script src="/static/jquery/jquery-3.3.1.min.js"></script>
+    <script src="/static/vue/vue.min.js"></script>
+    <script src="/static/iview/iview.min.js"></script>
 </head>
 <body>
-我的收藏
-
-<%@include file="/WEB-INF/views/include/blankScript.jsp" %>
+<div id="app">
+    <i-table></i-table>3333
+</div>
+<script>
+    new Vue({
+        el: '#app',
+        data: {
+            visible: false
+        },
+        methods: {
+            show: function () {
+                this.visible = true;
+            }
+        }
+    })
+</script>
 </body>
 </html>
