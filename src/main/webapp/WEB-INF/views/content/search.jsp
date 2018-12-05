@@ -31,10 +31,10 @@
     <div style="height: 50px;margin-top: 40px;margin-left: 40px;margin-right: 40px;">
         <i-input size="large" icon="ios-search" v-model="searchKey"
                  placeHolder="搜索音乐、歌手、歌词、用户"
-                 @on-click="search" @on-enter="search" @on-change="inputChange"></i-input>
+                 @on-click="search" @on-enter="search"></i-input>
     </div>
-    <div style="height: calc(100% - 120px);margin-left: 40px;margin-top: 20px;">
-        <row v-show="!showList">
+    <div style="height: calc(100% - 120px);margin-left: 40px;margin-top: 20px;margin-right: 40px;">
+        <row v-show="!showList" style="height: 100%;">
             <i-col span="11">
                 <div span="12" class="subTitle">热门搜索</div>
                 <div>
@@ -43,8 +43,7 @@
                     </i-button>
                 </div>
             </i-col>
-            <i-col span="2">&nbsp;</i-col>
-            <i-col span="11">
+            <i-col span="11" offset="2" style="height: 100%;">
                 <div class="subTitle">
                     搜索历史
                     <Icon style="float: right;top: 5px;position: relative;font-size: 23px;" type="ios-trash-outline"/>
@@ -92,7 +91,7 @@
             </i-col>
         </row>
         <div v-show="showList" style="height: 100%;">
-            <tabs v-model="currentTab" style="height: 100%;">
+            <tabs :animated="false" v-model="currentTab" style="height: 100%;">
                 <tab-pane label="单曲" :name="tabNames[0]" style="height: 100%;">
                     <div class="scroll-bar" style="height: 100%;overflow-y: scroll;">
                         <div style="margin-right: 31px;">
@@ -134,27 +133,165 @@
             tables: {
                 song: {
                     columns: [
-                        {}
+                        {
+                            title: '歌曲名称',
+                            key: 'name'
+                        },
+                        {
+                            title: '专辑名称',
+                            key: 'album'
+                        },
+                        {
+                            title: '歌手',
+                            key: 'singer'
+                        },
+                        {
+                            title: '时长',
+                            key: 'time'
+                        }
                     ],
-                    data: []
+                    data: [
+                        {
+                            name: 'All this time',
+                            album: 'Waking up',
+                            singer: 'OneRepublic',
+                            time: '4:05'
+                        },
+                        {
+                            name: 'A Change of Heart',
+                            album: 'I Like it When You Sleep,For You Are So Beautiful Yet So Unaware of It',
+                            singer: 'The 1975',
+                            time: '4:35'
+                        },
+                        {
+                            name: '将军',
+                            album: '七里香',
+                            singer: '周杰伦',
+                            time: '3:22'
+                        },
+                        {
+                            name: '夜的第七章',
+                            album: '依然范特西',
+                            singer: '周杰伦',
+                            time: '3:49'
+                        },
+                        {
+                            name: '夜的第七章',
+                            album: '依然范特西',
+                            singer: '周杰伦',
+                            time: '3:49'
+                        },
+                        {
+                            name: '将军',
+                            album: '七里香',
+                            singer: '周杰伦',
+                            time: '3:22'
+                        },
+                        {
+                            name: '将军',
+                            album: '七里香',
+                            singer: '周杰伦',
+                            time: '3:22'
+                        },
+                        {
+                            name: '将军',
+                            album: '七里香',
+                            singer: '周杰伦',
+                            time: '3:22'
+                        },
+                        {
+                            name: '将军',
+                            album: '七里香',
+                            singer: '周杰伦',
+                            time: '3:22'
+                        },
+                        {
+                            name: '将军',
+                            album: '七里香',
+                            singer: '周杰伦',
+                            time: '3:22'
+                        },
+                        {
+                            name: '将军',
+                            album: '七里香',
+                            singer: '周杰伦',
+                            time: '3:22'
+                        },
+                        {
+                            name: '将军',
+                            album: '七里香',
+                            singer: '周杰伦',
+                            time: '3:22'
+                        },
+                        {
+                            name: '将军',
+                            album: '七里香',
+                            singer: '周杰伦',
+                            time: '3:22'
+                        },
+                        {
+                            name: '将军',
+                            album: '七里香',
+                            singer: '周杰伦',
+                            time: '3:22'
+                        },
+                        {
+                            name: '将军',
+                            album: '七里香',
+                            singer: '周杰伦',
+                            time: '3:22'
+                        },
+                        {
+                            name: '将军',
+                            album: '七里香',
+                            singer: '周杰伦',
+                            time: '3:22'
+                        },
+                        {
+                            name: '将军',
+                            album: '七里香',
+                            singer: '周杰伦',
+                            time: '3:22'
+                        },
+                        {
+                            name: '将军',
+                            album: '七里香',
+                            singer: '周杰伦',
+                            time: '3:22'
+                        },
+                        {
+                            name: '将军',
+                            album: '七里香',
+                            singer: '周杰伦',
+                            time: '3:22'
+                        },
+                        {
+                            name: 'A Change of Heart',
+                            album: 'I Like it When You Sleep,For You Are So Beautiful Yet So Unaware of It',
+                            singer: 'The 1975',
+                            time: '4:35'
+                        }
+                    ]
                 },
                 author: {
                     columns: [],
                     data: []
                 }
-            }
-
+            },
         },
-        watch: {},
+        watch: {
+            searchKey: function (newVal, oldVal) {
+                if (newVal.length == 0) {
+                    this.search();
+                }
+            }
+        },
         methods: {
             clickSearchPopular: function (event) {
                 this.searchKey = event.srcElement.innerText;
                 this.search();
-            },
-            // 搜索输入发生改变时触发
-            inputChange: function (event) {
-                console.log(event);
-            },
+            }
+            ,
             search: function () {
                 if (this.searchKey.length == 0) {
                     this.showList = false;
