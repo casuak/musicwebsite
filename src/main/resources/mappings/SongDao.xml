@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.glf.jxframe.dao.SongDao">
+    <select id="list" resultType="com.glf.jxframe.entity.Song">
+        select * from song
+    </select>
+
+    <select id="getSongListByKey" resultType="com.glf.jxframe.entity.Song">
+        select a.* from
+          song a
+        where
+          -- 歌曲名匹配
+          a.name like concat('%', #{0}, '%') or
+          -- 作者别名匹配
+          (select b.nickName from author b where b.id = a.author_id) like concat('%', #{0}, '%') or
+          -- 作者真名匹配
+          (select b.realName from author b where b.id = a.author_id) like concat('%', #{0}, '%')
+    </select>
+
+</mapper>
