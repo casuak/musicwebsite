@@ -127,8 +127,8 @@
                 <tab-pane label="歌手" :name="tabNames[1]" style="height: 100%;">
                     <div class="scroll-bar" style="height: 100%;overflow-y: scroll;">
                         <div style="margin-right: 31px;">
-                            <i-table :loading="tables.author.loading" stripe :columns="tables.author.columns"
-                                     :data="tables.author.data"></i-table>
+                            <i-table style="width: 100%;" :loading="tables.author.loading" stripe :columns="tables.author.columns"
+                                     :data="tables.author.data" @on-row-dblclick="playSong"></i-table>
                         </div>
                     </div>
                 </tab-pane>
@@ -253,6 +253,20 @@
             callback_getAuthorList: function (d) {
                 console.log(d);
                 // this.tables.song.data = d;
+                for (var i = 0; i < d.length; i++){
+                    if(d[i].albumList.length > 0){
+                        d[i].album = d[i].albumList[0]['name'];
+                    }
+                    if(d[i].authoList.length > 0){
+                        d[i].author = d[i].authorList[0].nickName;
+                    }
+                    for (var j = 1; j < d[i].authorList.length; j++){
+                        d[i].author += '/' + d[i].authorList[j].nickName;
+                    }
+                    this.tables.song.data = d;
+                    this.table.song.loading = false;
+                }
+
                 this.tables.author.loading = false;
             },
             playSong: function (row, index) {

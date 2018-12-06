@@ -1,4 +1,31 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.glf.jxframe.dao.AuthorDao">
+    <select id="list" resultType="com.glf.jxframe.entity.Author">
+        select * from entity_author
+    </select>
+
+    <resultMap id="authorBean" type="com.glf.jxframe.entity.Author">
+        <id column="id" property="id"/>
+        <result column="name" property="name"/>
+        <result column="nickName" property="nickName"/>
+
+
+        <collection property="authorList" ofType="com.glf.jxframe.entity.Author">
+            <id column="author_id" property="id"/>
+            <result column="author_nickName" property="nickName"/>
+            <result column="author_realName" property="realName"/>
+        </collection>
+    </resultMap>
+
+    <select id="getAuthorListByKey" resultMap="authorBean">
+        select
+          a.id as id,
+          a.nickName as nickname,
+          a.realName as realname
+        from
+          entity_author a
+        where
+          a.
+    </select>
 </mapper>
