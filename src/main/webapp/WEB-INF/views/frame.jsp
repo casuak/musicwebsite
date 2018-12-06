@@ -162,7 +162,7 @@
                       aria-hidden="true"></span>
             </i-col>
             <%-- 歌曲时间条 --%>
-            <i-col style="display: inline-block;margin-left: 40px;width: calc(100% - 600px);">
+            <i-col style="display: inline-block;margin-left: 40px;width: calc(100% - 530px);">
                 <audio src="/static/songs/Taylor%20Swift%20-%20Last%20Christmas.mp3"
                        ref="audio" @pause="onPause" @play="onPlay"
                        @timeupdate="onTimeUpdate" @loadedmetadata="onLoadedMetaData"></audio>
@@ -180,16 +180,22 @@
                 <el-slider v-model="audio.sliderTime" :show-tooltip="false" @change="changeCurrentTime"
                            style="width: 100%;position:relative;bottom: 18px;"></el-slider>
             </i-col>
-            <i-col style="display: inline-block;margin-left: 30px;">
-                <%-- 播放规则 --%>
-                <span class="glyphicon glyphicon-volume-up"
-                      style="font-size: 20px;position: relative;top: 4px;"></span>
+            <i-col style="display: inline-block;margin-left: 30px;font-size: 18px;">
+                <%-- 添加到我喜欢的音乐歌单 --%>
+                <span class="glyphicon glyphicon-heart"
+                      style="position: relative;top: 4px;"></span>
+                <%-- 播放规则: 顺序播放，顺序循环播放，随机播放，单曲循环 --%>
+                <span class="glyphicon glyphicon-retweet"
+                      style="margin-left: 30px;position: relative;top: 3px;"></span>
                 <%-- 音量调节 --%>
                 <el-popover placement="bottom" trigger="click">
                     <el-slider v-model="audio.sliderVolume" :show-tooltip="false" style="width: 200px;"></el-slider>
                     <span slot="reference" class="glyphicon glyphicon-volume-up"
-                          style="font-size: 20px;position: relative;top: 4px;"></span>
+                          style="margin-left: 30px;position: relative;top: 5px;font-size: 19px;"></span>
                 </el-popover>
+                <%-- 当前播放列表 --%>
+                <span class="glyphicon glyphicon-list-alt"
+                      style="margin-left: 30px;position: relative;top: 5px;font-size: 19px;"></span>
             </i-col>
         </row>
     </div>
