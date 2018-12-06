@@ -143,10 +143,12 @@
         <%-- 底栏 --%>
         <row class="bottom" style="height: 100%;" oncontextmenu="return false" ondragstart="return false"
              onselectstart="return false" onbeforecopy="return false">
+            <%-- 歌曲所属专辑的图片 --%>
             <i-col style="display: inline-block;position:relative;bottom: 1px;">
                 <img class="song-image" src="/static/images/songHead.png">
                 <div class="song-image-black"></div>
             </i-col>
+            <%-- 上一首，播放，下一首 --%>
             <i-col style="display: inline-block;line-height: 70px;">
                 <span style="margin-left: 20px;padding: 8px 8px 9px 9px;"
                       class="btn-round glyphicon glyphicon-step-backward"
@@ -159,20 +161,35 @@
                       class="btn-round glyphicon glyphicon-step-forward"
                       aria-hidden="true"></span>
             </i-col>
+            <%-- 歌曲时间条 --%>
             <i-col style="display: inline-block;margin-left: 40px;width: calc(100% - 600px);">
-                <audio style="position: relative;top: 22px;height: 1px;"
-                       src="/static/songs/Taylor%20Swift%20-%20Last%20Christmas.mp3"
+                <audio src="/static/songs/Taylor%20Swift%20-%20Last%20Christmas.mp3"
                        ref="audio" @pause="onPause" @play="onPlay"
                        @timeupdate="onTimeUpdate" @loadedmetadata="onLoadedMetaData"></audio>
-                <el-slider v-model="audio.sliderTime" @change="changeCurrentTime"
-                           style="width: 100%;position:relative;top: 14px;"></el-slider>
+                <div style="position:relative;bottom: 12px;">
+                    <span>
+                        Last Christmas
+                    </span>
+                    <span>
+                        - Taylor Swift
+                    </span>
+                    <span style="float: right;">
+                        <span>{{ audio.string_currentTime }}</span> / <span>{{ audio.string_duration }}</span>
+                    </span>
+                </div>
+                <el-slider v-model="audio.sliderTime" :show-tooltip="false" @change="changeCurrentTime"
+                           style="width: 100%;position:relative;bottom: 18px;"></el-slider>
             </i-col>
             <i-col style="display: inline-block;margin-left: 30px;">
-                <span class="glyphicon glyphicon-volume-up" style="font-size: 20px;position: relative;top: 4px;"></span>
-            </i-col>
-            <i-col style="display: inline-block;margin-left: 20px;">
-                <el-slider v-model="audio.sliderVolume"
-                           style="width: 200px;position:relative;top: 14px;"></el-slider>
+                <%-- 播放规则 --%>
+                <span class="glyphicon glyphicon-volume-up"
+                      style="font-size: 20px;position: relative;top: 4px;"></span>
+                <%-- 音量调节 --%>
+                <el-popover placement="bottom" trigger="click">
+                    <el-slider v-model="audio.sliderVolume" :show-tooltip="false" style="width: 200px;"></el-slider>
+                    <span slot="reference" class="glyphicon glyphicon-volume-up"
+                          style="font-size: 20px;position: relative;top: 4px;"></span>
+                </el-popover>
             </i-col>
         </row>
     </div>
@@ -190,7 +207,11 @@
                 // 滑块的播放时间当前值 0 - 100，对应 0 - this.$refs.audio.currentTime
                 sliderTime: 0,
                 // 滑块的播放音量当前值 0 - 100，对应 0 - this.$refs.audio.volume
-                sliderVolume: 100
+                sliderVolume: 100,
+                // 当前的播放时间
+                string_currentTime: '0:00:00',
+                // 歌曲时长
+                string_duration: '0:00:00'
             }
         },
         watch: {
@@ -221,11 +242,12 @@
             },
             // 当播放进度变化
             onTimeUpdate: function (event) {
-                this.audio.sliderTime = event.target.currentTime / this.audio.duration * 100;
+                this.audio.sliderTime = this.$refs.audio.currentTime / this.$refs.audio.duration * 100;
+                this.audio.string_currentTime = realFormatSecond(this.$refs.audio.currentTime);
             },
             // 当音乐元数据加载完毕
             onLoadedMetaData: function (event) {
-                this.audio.duration = event.target.duration;
+                this.audio.string_duration = realFormatSecond(this.$refs.audio.duration);
             },
             // 点击播放/暂停按钮
             clickPlayOrPauseButton: function () {
@@ -233,7 +255,7 @@
             },
             // 拖动滑块的鼠标释放时触发
             changeCurrentTime: function (val) {
-                this.$refs.audio.currentTime = val / 100 * this.audio.duration;
+                this.$refs.audio.currentTime = val / 100 * this.$refs.audio.duration;
             }
         },
         mounted: function () {
