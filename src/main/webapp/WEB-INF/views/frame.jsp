@@ -164,7 +164,7 @@
                        src="/static/songs/Taylor%20Swift%20-%20Last%20Christmas.mp3"
                        ref="audio" @pause="onPause" @play="onPlay"
                        @timeupdate="onTimeUpdate" @loadedmetadata="onLoadedMetaData"></audio>
-                <el-slider v-model="audio.sliderTime"
+                <el-slider v-model="audio.sliderTime" @change="changeCurrentTime"
                            style="width: 100%;position:relative;top: 14px;"></el-slider>
             </i-col>
             <i-col style="display: inline-block;margin-left: 30px;">
@@ -187,18 +187,14 @@
             // 当前是否正在播放
             audio: {
                 isPlaying: false,
-                // 音乐总时长
-                duration: 0,
-                // 当前播放时长
-                currentTime: 0,
-                // 滑块的播放时间当前值
+                // 滑块的播放时间当前值 0 - 100，对应 0 - this.$refs.audio.currentTime
                 sliderTime: 0,
-                // 滑块的播放音量当前值
+                // 滑块的播放音量当前值 0 - 100，对应 0 - this.$refs.audio.volume
                 sliderVolume: 100
             }
         },
         watch: {
-            'audio.isPlaying': function (newVal, oldVal) {
+            'audio.isPlaying': function (newVal) {
                 if (newVal == true) {
                     this.$refs.audio.play();
                 }
@@ -206,9 +202,8 @@
                     this.$refs.audio.pause();
                 }
             },
-            // 拖动进度条改变当前的播放进度
             // 拖动进度条改变当前的播放音量
-            'audio.sliderVolume': function (newVal, oldVal) {
+            'audio.sliderVolume': function (newVal) {
                 this.$refs.audio.volume = newVal / 100;
             }
         },
@@ -226,8 +221,7 @@
             },
             // 当播放进度变化
             onTimeUpdate: function (event) {
-                this.audio.currentTime = event.target.currentTime;
-                this.audio.sliderTime = this.audio.currentTime / this.audio.duration * 100;
+                this.audio.sliderTime = event.target.currentTime / this.audio.duration * 100;
             },
             // 当音乐元数据加载完毕
             onLoadedMetaData: function (event) {
@@ -237,7 +231,7 @@
             clickPlayOrPauseButton: function () {
                 this.audio.isPlaying = !this.audio.isPlaying;
             },
-
+            // 拖动滑块的鼠标释放时触发
             changeCurrentTime: function (val) {
                 this.$refs.audio.currentTime = val / 100 * this.audio.duration;
             }
@@ -245,6 +239,8 @@
         mounted: function () {
             // 设置内容的初始页
             this.changeContent('content/search');
+            // 设置初始音量
+            this.audio.sliderVolume = 50
         }
     });
 

@@ -62,7 +62,7 @@
             <i-col span="11">
                 <div span="12" class="subTitle">热门搜索</div>
                 <div>
-                    <i-button style="margin: 3px 5px;" v-for="item in searchPopular" @click="clickSearchPopular">
+                    <i-button style="margin: 3px 5px;" v-for="item in searchPopular" :key="item" @click="clickSearchPopular">
                         {{ item }}
                     </i-button>
                 </div>
