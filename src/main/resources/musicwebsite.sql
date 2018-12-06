@@ -51,13 +51,20 @@ create table entity_album(
 );
 
 -- 搜索记录表
-create table entity_searchHistory(
+create table entity_search_history(
   id varchar(40) primary key,
   content varchar(200) comment '搜索内容',
   createTime datetime comment '创建时间',
   user_id varchar(40) comment '创建用户的id'
 );
 
+
+-- 歌单
+create table entity_song_list(
+  id varchar(40) primary key,
+  song_id varchar(40),
+  user_id varchar(40)
+);
 
 -- 歌曲-作家（多对多）
 create table map_song_author(
@@ -69,7 +76,7 @@ create table map_song_author(
 
 
 -- 评论
-create table comments(
+create table entity_comment(
   id varchar(40) primary key,
   song_id varchar(40),
   user_id varchar(40),
@@ -78,7 +85,7 @@ create table comments(
 );
 
 -- 用户-评论（多对多）
-create table  map_song_author(
+create table map_user_comment(
   id varchar(40) primary key,
   user_id varchar(40),
   comment_id varchar(40)
@@ -89,13 +96,6 @@ create table map_comment_song(
   id varchar(40) primary key,
   song_id varchar(40),
   comment_id varchar(40)
-);
-
--- 歌单
-create table entity_song_list(
-  id varchar(40) primary key,
-  song_id varchar(40),
-  user_id varchar(40)
 );
 
 
@@ -124,8 +124,8 @@ insert into entity_sys_user values ('5', 'liyaqi', 'li12345');
 insert into entity_song values ('1', '歌曲1', '啦啦啦', '00:00:10', '1', '/static/songs/Last Christmas.mp3');
 insert into entity_song values ('2', '歌曲2', '啦啦啦', '00:00:12', '1', '/static/songs/Last Christmas.mp3');
 insert into entity_song values ('3', '歌曲3', '啦啦啦', '00:00:12', '1', '/static/songs/Last Christmas.mp3');
-insert into entity_song values ('4', '歌曲4', '啦啦啦', '00:00:12', null,  '/static/songs/Last Christmas.mp3');
-insert into entity_song values ('5', '念诗之王', '啦啦啦' ,'00:02:26', '赵本山也要喝旺仔牛奶');
+insert into entity_song values ('4', '歌曲4', '啦啦啦', '00:00:12', null, '/static/songs/Beyond.mp3');
+insert into entity_song values ('5', '念诗之王', '啦啦啦' ,'00:02:26', '2', null);
 
 insert into entity_album values ('1', '专辑1');
 insert into entity_album values ('2', '专辑2');
@@ -142,6 +142,3 @@ insert into map_song_author values ('2', '1', '1');
 insert into map_song_author values ('3', '2', '1');
 insert into map_song_author values ('4', '3', '2');
 insert into map_song_author values ('5', '5', '3');
-
-
-insert into comments values ('1', '')

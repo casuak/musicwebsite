@@ -16,11 +16,11 @@
 
 <body>
 <div id="app" v-cloak>
-    <div style="font-size:20px;color:deepskyblue;font-family: 微软雅黑;margin-left:30px">
-        我的音乐云盘
+    <div style="font-size:16px;color:black;font-family: 微软雅黑;margin-left:30px">
+        我的音乐云盘:0G/60G
     </div>
-    <Tabs type="card" style="margin-left:2%">
-        <Tab-Pane label="歌曲" style="margin-left:20px">
+    <Tabs value="name1" style="margin-left:2%">
+        <Tab-Pane label="歌曲" name="name1" style="margin-left:20px">
 
             <i-button >
                 <Icon type="md-add"></Icon>
@@ -41,7 +41,7 @@
             </div>
 
         </Tab-Pane>
-        <Tab-Pane label="正在上传">
+        <Tab-Pane label="正在上传" name="name2">
 
             <div style="text-align:center;font-size:30px;font-family: 楷体">
                 暂无正在上传歌曲

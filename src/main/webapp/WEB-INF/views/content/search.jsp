@@ -120,7 +120,7 @@
                     <div class="scroll-bar" style="height: 100%;overflow-y: scroll;">
                         <div style="margin-right: 31px;">
                             <i-table style="width: 100%;" :loading="tables.song.loading" stripe :columns="tables.song.columns"
-                                     :data="tables.song.data"></i-table>
+                                     :data="tables.song.data" @on-row-dblclick="playSong"></i-table>
                         </div>
                     </div>
                 </tab-pane>
@@ -254,6 +254,9 @@
                 console.log(d);
                 // this.tables.song.data = d;
                 this.tables.author.loading = false;
+            },
+            playSong: function (row, index) {
+                window.parent.app.playSong(row.location);
             }
         },
         mounted: function () {

@@ -88,6 +88,21 @@
         .btn-round:active {
             border: 1px solid white;
         }
+
+        /* 隐藏表头 */
+        .el-table__footer-wrapper, .el-table__header-wrapper{
+            display: none;
+        }
+
+        /* 弹出框padding置0 */
+        .el-popover{
+            padding: 0px;
+        }
+
+        /* 去表格每一行的底边框 */
+        .el-table td, .el-table th.is-leaf{
+            border-bottom: 0px;
+        }
     </style>
 </head>
 <body>
@@ -163,7 +178,7 @@
             </i-col>
             <%-- 歌曲时间条 --%>
             <i-col style="display: inline-block;margin-left: 40px;width: calc(100% - 530px);">
-                <audio src="/static/songs/Last%20Christmas.mp3"
+                <audio src=""
                        ref="audio" @pause="onPause" @play="onPlay"
                        @timeupdate="onTimeUpdate" @loadedmetadata="onLoadedMetaData"></audio>
                 <div style="position:relative;bottom: 12px;">
@@ -188,14 +203,30 @@
                 <span class="glyphicon glyphicon-retweet"
                       style="margin-left: 30px;position: relative;top: 3px;"></span>
                 <%-- 音量调节 --%>
-                <el-popover placement="bottom" trigger="click">
-                    <el-slider v-model="audio.sliderVolume" :show-tooltip="false" style="width: 200px;"></el-slider>
+                <el-popover placement="top" trigger="click">
+                    <el-slider v-model="audio.sliderVolume" :show-tooltip="false"
+                               style="width: 200px;padding: 0px 20px;"></el-slider>
                     <span slot="reference" class="glyphicon glyphicon-volume-up"
                           style="margin-left: 30px;position: relative;top: 5px;font-size: 19px;"></span>
                 </el-popover>
                 <%-- 当前播放列表 --%>
-                <span class="glyphicon glyphicon-list-alt"
-                      style="margin-left: 30px;position: relative;top: 5px;font-size: 19px;"></span>
+                <el-popover placement="top" trigger="click">
+                    <div style="background: rgb(250, 250, 250);">
+                        <div style="padding: 13px 0px 10px 10px;">
+                            <span style="">播放列表</span>
+                            <%--<span>收藏全部</span>--%>
+                            <%--<span>清空</span>--%>
+                        </div>
+                        <el-table class="scroll-bar" :data="playList.data" stripe
+                                  style="height: 400px;">
+                            <el-table-column prop="name" label="歌名" width="150"></el-table-column>
+                            <el-table-column prop="authors" label="歌手们" width="200"></el-table-column>
+                            <el-table-column prop="duration" label="时长" width="70"></el-table-column>
+                        </el-table>
+                    </div>
+                    <span slot="reference" class="glyphicon glyphicon-list-alt"
+                          style="margin-left: 30px;position: relative;top: 5px;font-size: 19px;"></span>
+                </el-popover>
             </i-col>
         </row>
     </div>
@@ -215,9 +246,38 @@
                 // 滑块的播放音量当前值 0 - 100，对应 0 - this.$refs.audio.volume
                 sliderVolume: 100,
                 // 当前的播放时间
-                string_currentTime: '0:00:00',
+                string_currentTime: '00:00',
                 // 歌曲时长
-                string_duration: '0:00:00'
+                string_duration: '00:00'
+            },
+            // 播放列表
+            playList: {
+                data: [
+                    {
+                        name: 'Last Christmas',
+                        authors: 'Taylor Swift',
+                        duration: '03:30'
+                    },
+                    {
+                        name: 'Last Christmas',
+                        authors: 'Taylor Swift',
+                        duration: '03:30'
+                    },
+                    {
+                        name: 'Last Christmas',
+                        authors: 'Taylor Swift',
+                        duration: '03:30'
+                    },
+                    {
+                        name: 'Last Christmas',
+                        authors: 'Taylor Swift',
+                        duration: '03:30'
+                    }
+                ]
+            },
+            // 当前用户
+            sysUser: {
+                userName: ''
             }
         },
         watch: {
@@ -262,6 +322,11 @@
             // 拖动滑块的鼠标释放时触发
             changeCurrentTime: function (val) {
                 this.$refs.audio.currentTime = val / 100 * this.$refs.audio.duration;
+            },
+            /* iframe中调用 */
+            playSong: function (songLocation) {
+                this.$refs.audio.src = songLocation;
+                this.$refs.audio.play();
             }
         },
         mounted: function () {
@@ -284,9 +349,9 @@
             var minute = Math.floor(second / 60);
             second = second - minute * 60;
 
-            return hours + ':' + ('0' + minute).slice(-2) + ':' + ('0' + second).slice(-2);
+            return ('0' + minute).slice(-2) + ':' + ('0' + second).slice(-2);
         } else {
-            return '0:00:00';
+            return '00:00';
         }
     }
 </script>

@@ -10,6 +10,7 @@
         <result column="name" property="name"/>
         <result column="albumName" property="albumName"/>
         <result column="duration" property="duration"/>
+        <result column="location" property="location"/>
         <collection property="authorList" ofType="com.glf.jxframe.entity.Author">
             <id column="author_id" property="id"/>
             <result column="author_nickName" property="nickName"/>
@@ -26,6 +27,7 @@
           a.id as id,
           a.name as name,
           a.duration as duration,
+          a.location as location,
           c.id as author_id,
           c.nickName as author_nickName,
           c.realName as author_realName,

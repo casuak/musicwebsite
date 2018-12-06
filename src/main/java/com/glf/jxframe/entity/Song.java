@@ -13,6 +13,8 @@ public class Song {
 
     private Time duration;
 
+    private String location;
+
     // 以下是非数据库字段
     private List<Author> authorList; // 歌手列表
     private List<Album> albumList; // 所属专辑
@@ -63,5 +65,13 @@ public class Song {
 
     public void setAlbumList(List<Album> albumList) {
         this.albumList = albumList;
+    }
+
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
     }
 }
