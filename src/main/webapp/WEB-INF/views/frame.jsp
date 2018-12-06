@@ -90,18 +90,22 @@
         }
 
         /* 隐藏表头 */
-        .el-table__footer-wrapper, .el-table__header-wrapper{
+        .el-table__footer-wrapper, .el-table__header-wrapper {
             display: none;
         }
 
         /* 弹出框padding置0 */
-        .el-popover{
+        .el-popover {
             padding: 0px;
         }
 
         /* 去表格每一行的底边框 */
-        .el-table td, .el-table th.is-leaf{
+        .el-table td, .el-table th.is-leaf {
             border-bottom: 0px;
+        }
+
+        .userHead:hover {
+            cursor: pointer;
         }
     </style>
 </head>
@@ -139,10 +143,11 @@
                     </Menu-Group>
                 </i-Menu>
                 <div class="config" style="line-height: 70px;">
-                    <img style="border-radius: 1000px;width: 36px;height: 36px;
-                    margin-left: 10px;position: relative;bottom: 2px;"
-                         src="/static/images/userHead.png"/>
-                    <span style="margin-left: 10px;font-size: 13px;">未登录</span>
+                    <span class="userHead" @click="clickUserHead">
+                        <img src="/static/images/userHead.png"
+                             style="border-radius: 1000px;width: 36px;height: 36px;margin-left: 10px;position: relative;bottom: 2px;"/>
+                        <span style="margin-left: 10px;font-size: 13px;">未登录</span>
+                    </span>
                     <span style="margin-left: 60px;color: gray;font-size: 17px;position:relative;top: 1px;">
                         <span class="glyphicon glyphicon-envelope"
                               aria-hidden="true"></span>
@@ -229,6 +234,108 @@
                 </el-popover>
             </i-col>
         </row>
+        <%-- 登陆弹窗 --%>
+        <Modal v-model="modal1" :footer-hide="true" title="登陆注册页面" style="text-align: center" width="350">
+            <p>
+                <br><br><br><br><br><br><br><br>
+                <i-button shape="circle" style="height:40px" @click="modal2=true;modal1=false;modal3=false" long>
+                    手机号登录
+                </i-button>
+                <br><br>
+                <i-button shape="circle" style="height:40px" @click="modal1=false;modal2=false;modal3=true" long>
+                    注册
+                </i-button>
+            </p>
+            <br><br>
+            <br>
+            <divider>
+                其他登陆方式
+            </divider>
+            <div style="text-align: center">
+                <i-button shape="circle">
+                    微信
+                </i-button>
+                <i-button shape="circle">
+                    QQ
+                </i-button>
+                <i-button shape="circle">
+                    新浪微博
+                </i-button>
+                <i-button shape="circle">
+                    网易邮箱
+                </i-button>
+            </div>
+        </Modal>
+        <Modal v-model="modal2" :footer-hide="true" title="登录" style="text-align: center" width="350">
+            <i-form inline>
+                <br><br><br><br><br><br><br><br>
+                <form-item prop="user">
+                    <i-input type="text" placeholder="Username">
+                        <icon type="ios-person-outline" slot="prepend">
+
+                        </icon>
+                    </i-input>
+                </form-item>
+                <br>
+                <form-item prop="password">
+                    <i-input type="password" placeholder="Password">
+                        <icon type="ios-lock-outline" slot="prepend">
+
+                        </icon>
+                    </i-input>
+                </form-item>
+                <br><br><br>
+                <form-item>
+                    <i-button>
+                        登陆
+                    </i-button>
+                    <i-button @click="modal2=false;modal1=true">
+                        返回
+                    </i-button>
+                </form-item>
+            </i-form>
+        </Modal>
+        <Modal v-model="modal3" :footer-hide="true" title="注册" style="text-align: center" width="350">
+            <i-form inline>
+                <br><br><br><br><br><br>
+                <form-item prop="user">
+                    <i-input v-model="registerInfo.userName" type="text" placeholder="请输入用户名">
+                        <icon type="ios-person-outline" slot="prepend"></icon>
+                    </i-input>
+                </form-item>
+                <br>
+                <form-item prop="password">
+                    <i-input v-model="registerInfo.password" type="password" placeholder="请输入密码">
+                        <icon type="ios-lock-outline" slot="prepend"></icon>
+                    </i-input>
+                </form-item>
+                <br><br>
+                <form-item>
+                    <i-button @click="register">注册</i-button>
+                    <i-button @click="modal3=false;modal1=true">返回</i-button>
+                </form-item>
+            </i-form>
+            <divider>
+                其他注册方式
+            </divider>
+            <div style="text-align: center">
+                <i-button shape="circle">
+                    微信
+                </i-button>
+                <i-button shape="circle">
+                    QQ
+                </i-button>
+                <i-button shape="circle">
+                    新浪微博
+                </i-button>
+                <i-button shape="circle">
+                    网易邮箱
+                </i-button>
+            </div>
+        </Modal>
+        <Modal v-model="modal4" :footer-hide="true" title="个人信息" style="text-align: center" width="350">
+            <i-button @click="modal4=false">退出登陆</i-button>
+        </Modal>
     </div>
 </div>
 <%@include file="/WEB-INF/views/include/blankScript.jsp" %>
@@ -277,8 +384,19 @@
             },
             // 当前用户
             sysUser: {
+                isLogin: false,
                 userName: ''
-            }
+            },
+            // 注册信息
+            registerInfo: {
+                userName: '',
+                password: ''
+            },
+            // 三个弹窗
+            modal1: false,
+            modal2: false,
+            modal3: false,
+            modal4: false
         },
         watch: {
             'audio.isPlaying': function (newVal) {
@@ -322,6 +440,31 @@
             // 拖动滑块的鼠标释放时触发
             changeCurrentTime: function (val) {
                 this.$refs.audio.currentTime = val / 100 * this.$refs.audio.duration;
+            },
+            // 点击用户头像或用户名
+            clickUserHead: function () {
+                if (this.sysUser.isLogin) {
+                    this.modal4 = true;
+                }
+                else {
+                    this.modal1 = true;
+                }
+            },
+            // 注册
+            register: function () {
+                var url = "login/register";
+                var data = JSON.stringify(this.registerInfo);
+                $.ajax({
+                    type: 'post',
+                    data: data,
+                    url: url,
+                    cache: false,
+                    dataType: "json",
+                    contentType : 'application/json;charset=utf-8',
+                    success: function (d) {
+                        console.log(d);
+                    }
+                });
             },
             /* iframe中调用 */
             playSong: function (songLocation) {
