@@ -49,12 +49,37 @@ create table entity_album(
   name varchar(60) comment '专辑名'
 );
 
+-- 搜索记录表
+create table entity_searchHistory(
+  id varchar(40) primary key,
+  content varchar(200) comment '搜索内容',
+  createTime datetime comment '创建时间',
+  user_id varchar(40) comment '创建用户的id'
+);
+
+
+
+
 -- 歌曲-作家（多对多）
 create table map_song_author(
   id varchar(40) primary key,
   song_id varchar(40),
   author_id varchar(40)
 );
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 insert into entity_song values ('1', '歌曲1', '啦啦啦', '00:00:10', '1');
 insert into entity_song values ('2', '歌曲2', '啦啦啦', '00:00:12', '1');

@@ -29,31 +29,35 @@
             height: calc(100% - 52px);
         }
 
-        .column-song-name {
-            width: 40%;
+        .ivu-table-overflowX{
+            overflow-x: hidden;
         }
 
-        .column-song-author {
-            width: 25%;
-        }
+        /*.column-song-name {*/
+            /*width: 40%;*/
+        /*}*/
 
-        .column-song-album {
-            width: 25%;
-        }
+        /*.column-song-author {*/
+            /*width: 25%;*/
+        /*}*/
 
-        .column-song-duration {
-            width: 10%;
-        }
+        /*.column-song-album {*/
+            /*width: 25%;*/
+        /*}*/
+
+        /*.column-song-duration {*/
+            /*width: 10%;*/
+        /*}*/
     </style>
 </head>
 <body>
 <div id="app" v-cloak>
-    <div style="height: 50px;margin-top: 40px;margin-left: 40px;margin-right: 40px;">
+    <div style="height: 50px;margin-top: 20px;margin-left: 40px;margin-right: 40px;">
         <i-input size="large" icon="ios-search" v-model="searchKey"
                  placeHolder="搜索音乐、歌手、歌词、用户"
                  @on-click="search" @on-enter="search"></i-input>
     </div>
-    <div style="height: calc(100% - 120px);margin-left: 40px;margin-top: 15px;margin-right: 40px;">
+    <div style="height: calc(100% - 120px);margin-left: 40px;margin-top: 5px;margin-right: 40px;">
         <row v-show="!showList" style="height: 100%;">
             <i-col span="11">
                 <div span="12" class="subTitle">热门搜索</div>
@@ -115,7 +119,7 @@
                 <tab-pane label="单曲" :name="tabNames[0]" style="height: 100%;">
                     <div class="scroll-bar" style="height: 100%;overflow-y: scroll;">
                         <div style="margin-right: 31px;">
-                            <i-table :loading="tables.song.loading" stripe :columns="tables.song.columns"
+                            <i-table style="width: 100%;" :loading="tables.song.loading" stripe :columns="tables.song.columns"
                                      :data="tables.song.data"></i-table>
                         </div>
                     </div>
@@ -158,22 +162,22 @@
                         {
                             title: '歌曲名称',
                             key: 'name',
-                            className: 'column-song-name'
+                            minWidth: 10
                         },
                         {
                             title: '歌手',
                             key: 'author',
-                            className: 'column-song-author'
+                            minWidth: 10
                         },
                         {
                             title: '专辑名称',
                             key: 'album',
-                            className: 'column-song-album'
+                            minWidth: 10
                         },
                         {
                             title: '时长',
                             key: 'duration',
-                            className: 'column-song-duration'
+                            minWidth: 10
                         }
                     ],
                     data: [],
