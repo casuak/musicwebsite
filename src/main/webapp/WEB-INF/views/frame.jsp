@@ -163,7 +163,7 @@
             </i-col>
             <%-- 歌曲时间条 --%>
             <i-col style="display: inline-block;margin-left: 40px;width: calc(100% - 530px);">
-                <audio src="/static/songs/Taylor%20Swift%20-%20Last%20Christmas.mp3"
+                <audio src="/static/songs/Last%20Christmas.mp3"
                        ref="audio" @pause="onPause" @play="onPlay"
                        @timeupdate="onTimeUpdate" @loadedmetadata="onLoadedMetaData"></audio>
                 <div style="position:relative;bottom: 12px;">
