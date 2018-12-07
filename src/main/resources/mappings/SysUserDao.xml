@@ -4,8 +4,31 @@
     <select id="getUserByUserName" resultType="com.glf.jxframe.entity.SysUser">
         select * from entity_sys_user where userName = #{0}
     </select>
-    
+
     <insert id="addUser" parameterType="com.glf.jxframe.entity.SysUser">
         insert into entity_sys_user values (uuid(), #{userName}, #{password})
     </insert>
+
+    <select id="getAllUser" resultType="com.glf.jxframe.entity.SysUser">
+        select * from entity_sys_user;
+    </select>
+
+    <select id="list" parameterType="com.glf.jxframe.common.page.PageHelper"
+            resultType="com.glf.jxframe.entity.SysUser">
+        select * from entity_sys_user a
+        <where>
+            <if test="searchKey != null">
+                and a.userName like concat('%', #{searchKey}, '%')
+            </if>
+        </where>
+        limit #{pageStart}, #{pageSize}
+    </select>
+    <select id="listTotal" parameterType="com.glf.jxframe.common.page.PageHelper" resultType="int">
+        select count(*) from entity_sys_user a
+        <where>
+            <if test="searchKey != null">
+                and a.userName like concat('%', #{searchKey}, '%')
+            </if>
+        </where>
+    </select>
 </mapper>

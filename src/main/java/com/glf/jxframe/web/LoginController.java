@@ -71,7 +71,7 @@ public class LoginController {
 
     @RequestMapping(value = "/register", method = RequestMethod.POST)
     @ResponseBody
-    public Object register(@RequestBody SysUser registerInfo) {
+    public Object register(@RequestBody SysUser registerInfo, HttpSession session) {
         Map<String, Object> result = new HashMap<>();
         result.put("status", 1); // 1 - 成功，2 - 失败
         // 检测用户名和密码是否合法
@@ -84,6 +84,9 @@ public class LoginController {
         } else {
             sysUserDao.addUser(registerInfo);
         }
+        // 登陆
+        SysUser currentUser = sysUserDao.getUserByUserName(registerInfo.getUserName()).get(0);
+        session.setAttribute("currentUser", currentUser);
         return result;
     }
 

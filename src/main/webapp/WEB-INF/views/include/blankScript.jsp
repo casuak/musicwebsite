@@ -7,3 +7,5 @@
 <script src="/static/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
 
 <script src="https://unpkg.com/element-ui/lib/index.js"></script>
+
+<script src="/static/common/js/common.js"></script>

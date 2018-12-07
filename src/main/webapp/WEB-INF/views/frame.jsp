@@ -141,6 +141,12 @@
                             我的收藏
                         </Menu-Item>
                     </Menu-Group>
+                    <Menu-Group title="系统功能">
+                        <Menu-Item name="content/manageUser">
+                            <Icon type="ios-navigate"></Icon>
+                            管理用户
+                        </Menu-Item>
+                    </Menu-Group>
                 </i-Menu>
                 <div class="config" style="line-height: 70px;">
                     <span class="userHead" @click="clickUserHead">
@@ -464,6 +470,8 @@
                     success: function (d) {
                         if (d.status == 1) {
                             alert("注册成功");
+                            app.modal3 = false;
+                            app.checkLogin();
                         }
                         else {
                             alert("注册失败");
