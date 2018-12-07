@@ -9,6 +9,7 @@ public interface SysUserDao {
 
     List<SysUser> getUserByUserName(String userName);
 
+    // 添加用户
     void addUser(SysUser sysUser);
 
     List<SysUser> getAllUser();

@@ -14,6 +14,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * 接口整理：
+ * 1、null - 返回页面
+ * 2、listSysUser - 分页 + 搜索 -> 用户列表 + 总数
+ * 3、addSysUser 参数：一个SysUser对象，完成添加功能
+ */
 @Controller
 @RequestMapping("content/manageUser")
 public class ManageUserController {
@@ -26,18 +32,9 @@ public class ManageUserController {
         return "content/manageUser";
     }
 
-    /**
-     * @return 返回所有用户的列表
-     */
-    @RequestMapping(value = "getAllSysUser", method = RequestMethod.GET)
+    @RequestMapping(value = "listSysUser", method = RequestMethod.POST)
     @ResponseBody
-    public Object getAllSysUser(){
-        return sysUserDao.getAllUser();
-    }
-
-    @RequestMapping(value = "list", method = RequestMethod.POST)
-    @ResponseBody
-    public Object list(@RequestBody PageHelper pageHelper){
+    public Object listSysUser(@RequestBody PageHelper pageHelper){
         List<SysUser> list = sysUserDao.list(pageHelper);
         int total = sysUserDao.listTotal(pageHelper);
         Map<String, Object> result = new HashMap<>();
@@ -45,6 +42,8 @@ public class ManageUserController {
         result.put("total", total);
         return result;
     }
+
+//    public Object addSysUser
 
     @RequestMapping(value = "test", method = RequestMethod.POST)
     @ResponseBody

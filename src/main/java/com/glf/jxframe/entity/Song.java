@@ -16,7 +16,7 @@ public class Song {
     private String location;
 
     // 以下是非数据库字段
-    private List<Author> authorList; // 歌手列表
+    private List<Singer> singerList; // 歌手列表
     private List<Album> albumList; // 所属专辑
 
     public String getId() {
@@ -51,12 +51,12 @@ public class Song {
         this.duration = duration;
     }
 
-    public List<Author> getAuthorList() {
-        return authorList;
+    public List<Singer> getSingerList() {
+        return singerList;
     }
 
-    public void setAuthorList(List<Author> authorList) {
-        this.authorList = authorList;
+    public void setSingerList(List<Singer> singerList) {
+        this.singerList = singerList;
     }
 
     public List<Album> getAlbumList() {

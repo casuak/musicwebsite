@@ -1,11 +1,11 @@
 package com.glf.jxframe.dao;
 
-import com.glf.jxframe.entity.Author;
+import com.glf.jxframe.entity.Singer;
 
 import java.util.List;
 
 public interface AuthorDao {
-    List<Author> list();
+    List<Singer> list();
 
-    List<Author> getAuthorListByKey(String key);
+    List<Singer> getAuthorListByKey(String key);
 }

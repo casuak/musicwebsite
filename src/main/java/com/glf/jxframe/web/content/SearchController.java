@@ -2,7 +2,7 @@ package com.glf.jxframe.web.content;
 
 import com.glf.jxframe.dao.SongDao;
 import com.glf.jxframe.dao.AuthorDao;
-import com.glf.jxframe.entity.Author;
+import com.glf.jxframe.entity.Singer;
 import com.glf.jxframe.entity.Song;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -43,8 +43,8 @@ public class SearchController {
     @RequestMapping(value = "getAuthorList", method = RequestMethod.POST)
     @ResponseBody
     public Object getAuthorList(@RequestParam("key") String key){
-        List<Author> authorList = authorDao.getAuthorListByKey(key);
-        return authorList;
+        List<Singer> singerList = authorDao.getAuthorListByKey(key);
+        return singerList;
     }
 
 }

@@ -11,10 +11,10 @@
         <result column="albumName" property="albumName"/>
         <result column="duration" property="duration"/>
         <result column="location" property="location"/>
-        <collection property="authorList" ofType="com.glf.jxframe.entity.Author">
-            <id column="author_id" property="id"/>
-            <result column="author_nickName" property="nickName"/>
-            <result column="author_realName" property="realName"/>
+        <collection property="singerList" ofType="com.glf.jxframe.entity.Singer">
+            <id column="singer_id" property="id"/>
+            <result column="singer_nickName" property="nickName"/>
+            <result column="singer_realName" property="realName"/>
         </collection>
         <collection property="albumList" ofType="com.glf.jxframe.entity.Album">
             <id column="album_id" property="id"/>
@@ -28,15 +28,15 @@
           a.name as name,
           a.duration as duration,
           a.location as location,
-          c.id as author_id,
-          c.nickName as author_nickName,
-          c.realName as author_realName,
+          c.id as singer_id,
+          c.nickName as singer_nickName,
+          c.realName as singer_realName,
           d.id as album_id,
           d.name as album_name
         from
           entity_song a
-          left join map_song_author b on a.id = b.song_id
-          left join entity_author c on c.id = b.author_id
+          left join map_song_singer b on b.song_id = a.id
+          left join entity_singer c on c.id = b.singer_id
           left join entity_album d on d.id = a.album_id
         where
           a.name like concat('%', #{0}, '%')

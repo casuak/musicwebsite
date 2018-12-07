@@ -118,7 +118,7 @@
         <div class="middle">
             <div class="left">
                 <i-Menu :active-name="contentUrl" style="width: 100%;height: calc(100% - 70px);"
-                        class="scroll-bar" theme="light" @on-select="changeContent">
+                        class="scroll-bar" theme="light" @on-select="contentUrl=$event">
                     <Menu-Item name="content/search">
                         <Icon type="ios-navigate"></Icon>
                         搜索
@@ -419,8 +419,8 @@
             }
         },
         methods: {
-            changeContent: function (name) {
-                this.contentUrl = name;
+            test: function(event){
+                console.log(event);
             },
             // 当暂停时
             onPause: function () {
@@ -537,7 +537,7 @@
         },
         mounted: function () {
             // 设置内容的初始页
-            this.changeContent('content/search');
+            this.contentUrl = 'content/search';
             // 设置初始音量
             this.audio.sliderVolume = 50;
             // 检测当前用户是否登陆

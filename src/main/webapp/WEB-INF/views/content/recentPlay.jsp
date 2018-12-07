@@ -295,11 +295,11 @@
                 //         if (d[i].albumList.length > 0){
                 //             d[i].album = d[i].albumList[0]['name'];
                 //         }
-                //         if (d[i].authorList.length > 0){
-                //             d[i].author = d[i].authorList[0].nickName;
+                //         if (d[i].singerList.length > 0){
+                //             d[i].author = d[i].singerList[0].nickName;
                 //         }
-                //         for(var j = 1; j < d[i].authorList.length; j++){
-                //             d[i].author += '/' + d[i].authorList[j].nickName;
+                //         for(var j = 1; j < d[i].singerList.length; j++){
+                //             d[i].author += '/' + d[i].singerList[j].nickName;
                 //         }
                 //     }
                 //     this.table.data = d;

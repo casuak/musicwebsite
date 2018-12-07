@@ -1,6 +1,6 @@
 package com.glf.jxframe.entity;
 
-public class Author {
+public class Singer {
 
     private String id;
 
