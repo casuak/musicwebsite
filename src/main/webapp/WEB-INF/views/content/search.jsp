@@ -37,7 +37,7 @@
         /*width: 40%;*/
         /*}*/
 
-        /*.column-song-author {*/
+        /*.column-song-singer {*/
         /*width: 25%;*/
         /*}*/
 
@@ -129,9 +129,9 @@
                 <tab-pane label="歌手" :name="tabNames[1]" style="height: 100%;">
                     <div class="scroll-bar" style="height: 100%;overflow-y: scroll;">
                         <div style="margin-right: 31px;">
-                            <i-table style="width: 100%;" :loading="tables.author.loading" stripe
-                                     :columns="tables.author.columns"
-                                     :data="tables.author.data" @on-row-dblclick="playSong"></i-table>
+                            <i-table style="width: 100%;" :loading="tables.singer.loading" stripe
+                                     :columns="tables.singer.columns"
+                                     :data="tables.singer.data" @on-row-dblclick="playSong"></i-table>
                         </div>
                     </div>
                 </tab-pane>
@@ -153,7 +153,7 @@
             // 显示歌曲列表还是显示热门搜索
             showList: false,
             // 所有tabpane的name
-            tabNames: ['song', 'author'],
+            tabNames: ['song', 'singer'],
             // 当前在哪个tab
             currentTab: '',
             // table数据
@@ -167,7 +167,7 @@
                         },
                         {
                             title: '歌手',
-                            key: 'author',
+                            key: 'singer',
                             minWidth: 10
                         },
                         {
@@ -184,7 +184,7 @@
                     data: [],
                     loading: false
                 },
-                author: {
+                singer: {
                     columns: [],
                     data: [],
                     loading: false
@@ -228,9 +228,9 @@
                         this.tables.song.loading = true;
                         break;
                     case this.tabNames[1]:
-                        callback = this.callback_getAuthorList;
+                        callback = this.callback_getsingerList;
                         url += "getSingerList";
-                        this.tables.author.loading = true;
+                        this.tables.singer.loading = true;
                         break;
                 }
                 $.post(url, data, callback);
@@ -242,16 +242,16 @@
                         d[i].album = d[i].albumList[0]['name'];
                     }
                     if (d[i].singerList.length > 0) {
-                        d[i].author = d[i].singerList[0].nickName;
+                        d[i].singer = d[i].singerList[0].nickName;
                     }
                     for (var j = 1; j < d[i].singerList.length; j++) {
-                        d[i].author += '/' + d[i].singerList[j].nickName;
+                        d[i].singer += '/' + d[i].singerList[j].nickName;
                     }
                 }
                 this.tables.song.data = d;
                 this.tables.song.loading = false;
             },
-            callback_getAuthorList: function (d) {
+            callback_getsingerList: function (d) {
                 console.log(d);
                 // this.tables.song.data = d;
                 for (var i = 0; i < d.length; i++) {
@@ -259,16 +259,16 @@
                         d[i].album = d[i].albumList[0]['name'];
                     }
                     if (d[i].authoList.length > 0) {
-                        d[i].author = d[i].singerList[0].nickName;
+                        d[i].singer = d[i].singerList[0].nickName;
                     }
                     for (var j = 1; j < d[i].singerList.length; j++) {
-                        d[i].author += '/' + d[i].singerList[j].nickName;
+                        d[i].singer += '/' + d[i].singerList[j].nickName;
                     }
                     this.tables.song.data = d;
                     this.table.song.loading = false;
                 }
 
-                this.tables.author.loading = false;
+                this.tables.singer.loading = false;
             },
             playSong: function (row, index) {
                 window.parent.app.playSong(row.location);

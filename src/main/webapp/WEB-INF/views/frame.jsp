@@ -231,7 +231,7 @@
                         <el-table class="scroll-bar" :data="playList.data" stripe
                                   style="height: 400px;">
                             <el-table-column prop="name" label="歌名" width="150"></el-table-column>
-                            <el-table-column prop="authors" label="歌手们" width="200"></el-table-column>
+                            <el-table-column prop="singers" label="歌手们" width="200"></el-table-column>
                             <el-table-column prop="duration" label="时长" width="70"></el-table-column>
                         </el-table>
                     </div>
@@ -360,22 +360,22 @@
                 data: [
                     {
                         name: 'Last Christmas',
-                        authors: 'Taylor Swift',
+                        singers: 'Taylor Swift',
                         duration: '03:30'
                     },
                     {
                         name: 'Last Christmas',
-                        authors: 'Taylor Swift',
+                        singers: 'Taylor Swift',
                         duration: '03:30'
                     },
                     {
                         name: 'Last Christmas',
-                        authors: 'Taylor Swift',
+                        singers: 'Taylor Swift',
                         duration: '03:30'
                     },
                     {
                         name: 'Last Christmas',
-                        authors: 'Taylor Swift',
+                        singers: 'Taylor Swift',
                         duration: '03:30'
                     }
                 ]
