@@ -14,7 +14,7 @@
 <body>
 <div id="app" class="scroll-bar" v-cloak style="padding: 30px;height: 100%;">
     <el-button @click="table_sysUser.dialog_add=true" type="primary" size="small">添加用户</el-button>
-    <el-button type="danger" size="small">批量删除</el-button>
+    <el-button @click="table_sysUser.delete(table_sysUser.multipleSelection)" type="danger" size="small">批量删除</el-button>
     <el-form :inline="true" style="float: right;" @submit.native.prevent>
         <el-form-item>
             <el-input v-model="table_sysUser.page.searchKey" size="small" placeholder="搜索用户名"></el-input>
@@ -23,8 +23,8 @@
             <el-button @click="table_sysUser.select" type="primary" size="small">搜索</el-button>
         </el-form-item>
     </el-form>
-    <el-table v-loading="table_sysUser.loading" :data="table_sysUser.data" border stripe style=";margin-top: 30px;"
-              size="small">
+    <el-table @selection-change="table_sysUser.multipleSelection=$event" v-loading="table_sysUser.loading" :data="table_sysUser.data"
+              border stripe style=";margin-top: 30px;" size="small">
         <el-table-column align="center" type="selection"></el-table-column>
         <el-table-column align="center" label="序号" width="48">
             <template slot-scope="scope">
@@ -37,7 +37,7 @@
         <el-table-column align="center" prop="formatCreateTime" label="创建时间"></el-table-column>
         <el-table-column align="center" label="操作" width="200">
             <template slot-scope="scope">
-                <el-button type="danger" size="small">删除</el-button>
+                <el-button @click="table_sysUser.delete([scope.row])" type="danger" size="small">删除</el-button>
                 <el-button type="success" size="small">编辑</el-button>
             </template>
         </el-table-column>
@@ -89,6 +89,7 @@
                         return (this.currentPage - 1) * this.pageSize;
                     }
                 },
+                multipleSelection: [],
                 select: function () {
                     var url = "/content/manageUser/sysUser/select";
                     var data = {
@@ -101,7 +102,6 @@
                         app.table_sysUser.data = d.list;
                         app.table_sysUser.page.total = d.total;
                         app.table_sysUser.loading = false;
-                        console.log(d);
                     })
                 },
                 insert: function () {
@@ -141,8 +141,12 @@
                 update: function () {
 
                 },
-                delete: function () {
-
+                delete: function (rowList) {
+                    var url = "/content/manageUser/sysUser/delete";
+                    var data = rowList;
+                    ajaxPostJSON(url, data, function(d){
+                        console.log(d);
+                    })
                 }
             }
         }

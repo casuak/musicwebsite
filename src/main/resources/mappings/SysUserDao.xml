@@ -31,4 +31,12 @@
             </if>
         </where>
     </select>
+
+    <select id="delete" parameterType="com.glf.jxframe.entity.SysUser">
+        delete from entity_sys_user where id in
+        <foreach item="item" index="index" collection="list"
+                 open="(" separator="," close=")">
+            #{item.id}
+        </foreach>
+    </select>
 </mapper>

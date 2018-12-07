@@ -65,6 +65,13 @@ public class ManageUserController {
         return result;
     }
 
+    @RequestMapping(value = "sysUser/delete", method = RequestMethod.POST)
+    @ResponseBody
+    public Object delete(@RequestBody List<SysUser> userList) {
+        sysUserDao.delete(userList);
+        return null;
+    }
+
     @RequestMapping(value = "test", method = RequestMethod.POST)
     @ResponseBody
     public Object test(@RequestBody SysUser sysUser) {

@@ -73,13 +73,6 @@ insert into entity_sys_user values ('4', now(), 'zhangchi', 'zhang12345');
 insert into entity_sys_user values ('5', now(), 'liyaqi', 'li12345');
 insert into entity_sys_user values ('6', now(), 'admin', 'admin');
 
--- 歌曲
-insert into entity_song values ('1', '歌曲1', '啦啦啦', '00:10', '1', '/static/songs/Last Christmas.mp3');
-insert into entity_song values ('2', '歌曲2', '啦啦啦', '00:12', '1', '/static/songs/Last Christmas.mp3');
-insert into entity_song values ('3', '歌曲3', '啦啦啦', '00:12', '1', '/static/songs/Last Christmas.mp3');
-insert into entity_song values ('4', '歌曲4', '啦啦啦', '00:12', '3', '/static/songs/Beyond.mp3');
-insert into entity_song values ('5', '念诗之王', '啦啦啦' ,'02:26', '2', '/static/songs/Beyond.mp3');
-
 -- 专辑
 insert into entity_album values ('1', '专辑1');
 insert into entity_album values ('2', '专辑2');
@@ -104,16 +97,16 @@ insert into map_song_singer values ('5', '5', '3');
 
 
 
-insert into entity_song values('6', '心跳', 'a', '04:23', NULL, 'http://m10.music.126.net/20181207205859/280ac410330650d618c4b0dfae77b1ae/ymusic/3704/8601/3c9a/8b83b7ea059fe7e06a9a38693b8b2e92.mp3');
-insert into entity_song values('7', '醉赤壁', 'a', '04:41', NULL, 'http://m10.music.126.net/20181207210137/3d9f09f2d0b9dfee9b13c73454605aa9/ymusic/b859/cc34/7579/d4775a3cc496a1a1deb5ea5a48c8daa6.mp3');
-insert into entity_song values('8', '可惜没如果', 'a', '04:58' ,NULL, 'http://m10.music.126.net/20181207210239/c89366c57f4072c0587d9258c32f7774/ymusic/740b/4504/2f5f/3231ce4bac72b0f24d53397af7b34189.mp3');
-insert into entity_song values('9', '她说', 'a', '05:20' ,NULL, 'http://m10.music.126.net/20181207210321/0e68969477cc0b82371b84d1ecf073af/ymusic/4817/c06c/d440/2b560590e90c93dbfbf7594a53a38d70.mp3');
-insert into entity_song values('10', '江南', 'a', '04:27' ,NULL, 'http://m10.music.126.net/20181207210409/7543b60f379c36ac443d13989859aea4/ymusic/8b53/b4e9/b60f/85a5b4d07d6e64e9fdf029148f9e71ca.mp3');
-insert into entity_song values('11', '我们', 'a', '04:20' ,NULL, 'http://m10.music.126.net/20181207210524/e3f58761249fa73ffaafc6475e27d9d5/ymusic/520f/0309/0109/ee0d951e364c4b3300db6c727cfff5dd.mp3');
-insert into entity_song values('12', '淘汰', 'a', '04:45' ,NULL, 'http://m10.music.126.net/20181207210601/f310d3fb2477ba3128efafe5cf5d380a/ymusic/96ad/979d/388d/cc4112b4da9dc60264cddee495150ee9.mp3');
-insert into entity_song values('13', '好久不见', 'a', '04:10' ,NULL, 'http://m10.music.126.net/20181207210633/9cf614ab0162f89d4cb2b385646a105a/ymusic/d8ce/08c3/986c/844405c5672efe9b10076bab25d7bce2.mp3');
-insert into entity_song values('14', '红玫瑰', 'a', '03:59' ,NULL, 'http://m10.music.126.net/20181207210712/3fb0c35dd8b1785e8f0d26be8a40c731/ymusic/6cf9/3003/9e72/d9dab50f0aa723753c5652dd73a04daf.mp3');
-insert into entity_song values('15', '爱情转移', 'a', '04:19' ,NULL, 'http://m10.music.126.net/20181207211106/ee7d675a802e878947a88796dcf4b94c/ymusic/6811/1264/ea16/1d4423658007def2c642a5b18c311fdf.mp3');
+insert into entity_song values('6', '心跳', 'a', '04:23', NULL, 'http://fs.w.kugou.com/201812072148/28516fc16a13039efcc90860c176d5e4/G007/M05/1F/19/Rw0DAFT930yAIqaWAD_tlsuFIqk991.mp3');
+insert into entity_song values('7', '醉赤壁', 'a', '04:41', NULL, 'http://fs.w.kugou.com/201812072119/bd937c609419813c76fe43715ffaa540/G142/M04/13/13/zg0DAFuKd7SAd8rQAESUe9bXyXk676.mp3');
+insert into entity_song values('8', '可惜没如果', 'a', '04:58' ,NULL, 'http://fs.w.kugou.com/201812072141/ab7d807567340295c55a191c0c5d98dd/G012/M02/18/1B/rIYBAFUPGLiAY70aAEjYKJYV34o632.mp3');
+insert into entity_song values('9', '她说', 'a', '05:20' ,NULL, 'http://fs.w.kugou.com/201812072107/107918380fd58afe4be8e17218720f12/G013/M02/1C/04/rYYBAFUK4k-AfHs8AE5NGHELcMw138.mp3');
+insert into entity_song values('10', '江南', 'a', '04:27' ,NULL, 'http://fs.w.kugou.com/201812072115/c3807034a5a94394b4e51006a7595d8c/G004/M08/16/03/pIYBAFS-a_aAcZRBAEGtSN5wixs886.mp3');
+insert into entity_song values('11', '我们', 'a', '04:20' ,NULL, 'http://fs.w.kugou.com/201812072205/180d0ad8cc384c70073ae60a0b1db51f/G132/M08/04/17/xA0DAFrMp6WAW1G3AD-0vqnx2mw603.mp3');
+insert into entity_song values('12', '淘汰', 'a', '04:45' ,NULL, 'http://fs.w.kugou.com/201812072137/6bc3bec1fa15b39caf9841bcf94e1fd3/G014/M08/1D/0F/Tg0DAFUPK-SAZ4HyAEWaBtGXF0M829.mp3');
+insert into entity_song values('13', '好久不见', 'a', '04:10' ,NULL, 'http://fs.w.kugou.com/201812072206/dd660c1efacf4a93e96317c2373a9b7a/G032/M08/0F/03/wIYBAFWhiyGAMhCRAD7R8d6vhBc112.mp3');
+insert into entity_song values('14', '红玫瑰', 'a', '03:59' ,NULL, 'http://fs.w.kugou.com/201812072123/6d378a75c1654b8a16dc85ae86b0547b/G008/M08/07/17/SA0DAFT-vDKAVnOvADqfOLPG3ig724.mp3');
+insert into entity_song values('15', '爱情转移', 'a', '04:19' ,NULL, 'http://fs.w.kugou.com/201812072142/4a08019c0cf8deeb0ad907a55752e337/G006/M07/07/09/poYBAFS2pCOAEtnhAD8xOYM1hrE018.mp3');
 
 insert into entity_singer values('4', '王力宏', '王力宏');
 insert into entity_singer values('5', '林俊杰', '林俊杰');

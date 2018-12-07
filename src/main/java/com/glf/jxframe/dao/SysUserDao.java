@@ -15,4 +15,6 @@ public interface SysUserDao {
     List<SysUser> list(PageHelper pageHelper);
     // 总数
     int listTotal(PageHelper pageHelper);
+    // 批量删除
+    void delete(List<SysUser> userList);
 }
