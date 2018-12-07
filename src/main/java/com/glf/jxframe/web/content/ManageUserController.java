@@ -69,7 +69,9 @@ public class ManageUserController {
     @ResponseBody
     public Object delete(@RequestBody List<SysUser> userList) {
         sysUserDao.delete(userList);
-        return null;
+        Map<String, Object> result = new HashMap<>();
+        result.put("code", 1);
+        return result;
     }
 
     @RequestMapping(value = "test", method = RequestMethod.POST)

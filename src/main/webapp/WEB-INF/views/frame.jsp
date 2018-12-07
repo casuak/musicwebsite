@@ -113,7 +113,7 @@
 <div id="app" v-cloak style="height: 100%">
     <div style="height: 100%">
         <div class="top">
-            <div class="title">网易云音乐</div>
+            <div class="title">千寻音乐</div>
         </div>
         <div class="middle">
             <div class="left">
@@ -194,10 +194,10 @@
                        @timeupdate="onTimeUpdate" @loadedmetadata="onLoadedMetaData"></audio>
                 <div style="position:relative;bottom: 12px;">
                     <span>
-                        Last Christmas
+                        &nbsp;{{ audio.songName }}
                     </span>
                     <span>
-                        - Taylor Swift
+                        {{ ((audio.singer == null || audio.singer == '') ? '' : ' - ') + (audio.singer == null ? '' : audio.singer) }}
                     </span>
                     <span style="float: right;">
                         <span>{{ audio.string_currentTime }}</span> / <span>{{ audio.string_duration }}</span>
@@ -353,7 +353,11 @@
                 // 当前的播放时间
                 string_currentTime: '00:00',
                 // 歌曲时长
-                string_duration: '00:00'
+                string_duration: '00:00',
+                // 当前歌名
+                songName: null,
+                // 当前作者名
+                singerName: ''
             },
             // 播放列表
             playList: {
@@ -530,9 +534,11 @@
                 })
             },
             /* iframe中调用 */
-            playSong: function (songLocation) {
-                this.$refs.audio.src = songLocation;
+            playSong: function (song) {
+                this.$refs.audio.src = song.location;
                 this.$refs.audio.play();
+                app.audio.songName = song.name;
+                app.audio.singer = song.singer;
             }
         },
         mounted: function () {

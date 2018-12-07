@@ -58,6 +58,13 @@ create table map_song_singer(
   singer_id varchar(40)
 );
 
+-- 歌曲-专辑
+create table map_song_album(
+  id varchar(40) primary key,
+  song_id varchar(40),
+  album_id varchar(40)
+);
+
 
 
 
@@ -89,7 +96,6 @@ insert into map_song_singer values ('2', '1', '1');
 insert into map_song_singer values ('3', '2', '1');
 insert into map_song_singer values ('4', '3', '2');
 insert into map_song_singer values ('5', '5', '3');
-
 
 
 

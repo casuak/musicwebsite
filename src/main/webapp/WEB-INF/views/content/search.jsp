@@ -271,7 +271,7 @@
                 this.tables.singer.loading = false;
             },
             playSong: function (row, index) {
-                window.parent.app.playSong(row.location);
+                window.parent.app.playSong(row);
             }
         },
         mounted: function () {

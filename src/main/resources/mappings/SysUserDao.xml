@@ -21,6 +21,7 @@
                 and a.userName like concat('%', #{searchKey}, '%')
             </if>
         </where>
+        order by a.createTime
         limit #{pageStart}, #{pageSize}
     </select>
     <select id="listTotal" parameterType="com.glf.jxframe.common.page.PageHelper" resultType="int">

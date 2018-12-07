@@ -14,7 +14,8 @@
 <body>
 <div id="app" class="scroll-bar" v-cloak style="padding: 30px;height: 100%;">
     <el-button @click="table_sysUser.dialog_add=true" type="primary" size="small">添加用户</el-button>
-    <el-button @click="table_sysUser.delete(table_sysUser.multipleSelection)" type="danger" size="small">批量删除</el-button>
+    <el-button @click="table_sysUser.confirmDelete(table_sysUser.multipleSelection)" type="danger" size="small">批量删除
+    </el-button>
     <el-form :inline="true" style="float: right;" @submit.native.prevent>
         <el-form-item>
             <el-input v-model="table_sysUser.page.searchKey" size="small" placeholder="搜索用户名"></el-input>
@@ -23,7 +24,8 @@
             <el-button @click="table_sysUser.select" type="primary" size="small">搜索</el-button>
         </el-form-item>
     </el-form>
-    <el-table @selection-change="table_sysUser.multipleSelection=$event" v-loading="table_sysUser.loading" :data="table_sysUser.data"
+    <el-table @selection-change="table_sysUser.multipleSelection=$event" v-loading="table_sysUser.loading"
+              :data="table_sysUser.data"
               border stripe style=";margin-top: 30px;" size="small">
         <el-table-column align="center" type="selection"></el-table-column>
         <el-table-column align="center" label="序号" width="48">
@@ -37,7 +39,7 @@
         <el-table-column align="center" prop="formatCreateTime" label="创建时间"></el-table-column>
         <el-table-column align="center" label="操作" width="200">
             <template slot-scope="scope">
-                <el-button @click="table_sysUser.delete([scope.row])" type="danger" size="small">删除</el-button>
+                <el-button @click="table_sysUser.confirmDelete([scope.row])" type="danger" size="small">删除</el-button>
                 <el-button type="success" size="small">编辑</el-button>
             </template>
         </el-table-column>
@@ -51,6 +53,7 @@
                    :page-size.sync="table_sysUser.page.pageSize"
                    :total="table_sysUser.page.total">
     </el-pagination>
+    <%-- 添加用户弹窗 --%>
     <el-dialog :visible.sync="table_sysUser.dialog_add" title="添加用户" width="600px">
         <el-form size="small" label-position="right" label-width="80px" style="width: 500px;">
             <el-form-item label="用户名">
@@ -65,6 +68,14 @@
             <el-button type="primary" size="small" @click="table_sysUser.insert">添 加</el-button>
         </div>
     </el-dialog>
+    <%-- 删除用户确认弹窗 --%>
+    <el-dialog :visible.sync="table_sysUser.dialog_delete" title="提示" width="400px">
+        <span>此操作将永久删除该文件, 是否继续?</span>
+        <span slot="footer" class="dialog-footer">
+            <el-button @click="table_sysUser.dialog_delete=false">取 消</el-button>
+            <el-button type="primary" @click="table_sysUser.delete()">确 定</el-button>
+        </span>
+    </el-dialog>
 </div>
 <%@include file="/WEB-INF/views/include/blankScript.jsp" %>
 <script>
@@ -75,6 +86,7 @@
                 data: [],
                 loading: false,
                 dialog_add: false,
+                dialog_delete: false,
                 form_add: {
                     userName: '',
                     password: ''
@@ -89,7 +101,10 @@
                         return (this.currentPage - 1) * this.pageSize;
                     }
                 },
+                // 多选
                 multipleSelection: [],
+                // 确认删除
+                deleteSelection: [],
                 select: function () {
                     var url = "/content/manageUser/sysUser/select";
                     var data = {
@@ -138,15 +153,17 @@
                         }
                     })
                 },
-                update: function () {
-
+                confirmDelete: function (rowList) {
+                    app.table_sysUser.deleteSelection = rowList;
+                    app.table_sysUser.dialog_delete = true;
                 },
-                delete: function (rowList) {
+                delete: function () {
                     var url = "/content/manageUser/sysUser/delete";
-                    var data = rowList;
-                    ajaxPostJSON(url, data, function(d){
-                        console.log(d);
-                    })
+                    var data = app.table_sysUser.deleteSelection;
+                    ajaxPostJSON(url, data, function (d) {
+                        app.table_sysUser.dialog_delete = false;
+                        app.table_sysUser.select();
+                    });
                 }
             }
         }
