@@ -145,7 +145,7 @@
         el: '#app',
         data: {
             // 热门搜索列表
-            searchPopular: ['歌', '起风了', '朱正廷', 'Alan Walker新歌', 'RADWIMPs', '陈绮贞新歌', '国风美少年', '艾热新歌', 'John J', '郭顶山形瑞秋合作新曲'],
+            searchPopular: ['心跳', '醉赤壁', '王力宏', '陈奕迅', '我们'],
             // 搜索历史
             searchHistory: [],
             // 搜索关键词
