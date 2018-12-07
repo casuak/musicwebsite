@@ -32,9 +32,9 @@ public class ManageUserController {
         return "content/manageUser";
     }
 
-    @RequestMapping(value = "listSysUser", method = RequestMethod.POST)
+    @RequestMapping(value = "sysUser/select", method = RequestMethod.POST)
     @ResponseBody
-    public Object listSysUser(@RequestBody PageHelper pageHelper){
+    public Object sysUserSelect(@RequestBody PageHelper pageHelper){
         List<SysUser> list = sysUserDao.list(pageHelper);
         int total = sysUserDao.listTotal(pageHelper);
         Map<String, Object> result = new HashMap<>();
@@ -43,7 +43,11 @@ public class ManageUserController {
         return result;
     }
 
-//    public Object addSysUser
+    @RequestMapping(value = "sysUser/insert", method = RequestMethod.POST)
+    @ResponseBody
+    public Object sysUserInsert(@RequestBody SysUser newSysUser){
+        return null;
+    }
 
     @RequestMapping(value = "test", method = RequestMethod.POST)
     @ResponseBody

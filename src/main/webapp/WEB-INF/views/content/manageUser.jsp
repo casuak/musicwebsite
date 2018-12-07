@@ -20,7 +20,7 @@
             <el-input v-model="table_sysUser.page.searchKey" size="small" placeholder="搜索用户名"></el-input>
         </el-form-item>
         <el-form-item>
-            <el-button type="primary" size="small">搜索</el-button>
+            <el-button @click="table_sysUser.select" type="primary" size="small">搜索</el-button>
         </el-form-item>
     </el-form>
     <el-table v-loading="table_sysUser.loading" :data="table_sysUser.data" border stripe style=";margin-top: 30px;"
@@ -43,8 +43,8 @@
     </el-table>
     <el-pagination style="margin-top: 20px;float: right;"
                    layout="total, sizes, prev, pager, next, jumper"
-                   @size-change="table_sysUser.update(app)"
-                   @current-change="table_sysUser.update(app)"
+                   @size-change="table_sysUser.select"
+                   @current-change="table_sysUser.select"
                    :current-page.sync="table_sysUser.page.currentPage"
                    :page-sizes="table_sysUser.page.pageSizes"
                    :page-size.sync="table_sysUser.page.pageSize"
@@ -61,7 +61,7 @@
         </el-form>
         <div slot="footer">
             <el-button size="small" @click="table_sysUser.dialog_add=false">取 消</el-button>
-            <el-button type="primary" size="small" @click="table_sysUser.add(app)">添 加</el-button>
+            <el-button type="primary" size="small" @click="table_sysUser.insert">添 加</el-button>
         </div>
     </el-dialog>
 </div>
@@ -88,12 +88,13 @@
                         return (this.currentPage - 1) * this.pageSize;
                     }
                 },
-                select: function (app) {
-                    var url = "/content/manageUser/listSysUser";
+                select: function (event) {
+                    console.log(app);
+                    var url = "/content/manageUser/sysUser/select";
                     var data = {
-                        currentPage: this.page.currentPage,
-                        pageSize: this.page.pageSize,
-                        searchKey: this.searchKey
+                        currentPage: app.table_sysUser.page.currentPage,
+                        pageSize: app.table_sysUser.page.pageSize,
+                        searchKey: app.table_sysUser.page.searchKey
                     };
                     this.loading = true;
                     ajaxPostJSON(url, data, function (d) {
@@ -102,28 +103,21 @@
                         app.table_sysUser.loading = false;
                     })
                 },
-                insert: function (app) {
-                    var url = "/content/manageUser/"
+                insert: function () {
+                    var url = "/content/manageUser/sysUser/insert";
                     var data = this.form_add;
+                },
+                update: function () {
 
                 },
-                update: function (app) {
-
-                },
-                delete: function (app) {
+                delete: function () {
 
                 }
             }
-        },
-        methods: {
-            // 根据用户id删除用户
-            deleteUserByIds: function (idList) {
-                console.log(idList);
-            }
-        },
-        mounted: function () {
-            this.table_sysUser.select(this);
         }
+    });
+    $(document).ready(function(){
+        app.table_sysUser.select();
     })
 </script>
 </body>
