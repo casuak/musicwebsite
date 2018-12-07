@@ -6,7 +6,7 @@
     </select>
 
     <insert id="addUser" parameterType="com.glf.jxframe.entity.SysUser">
-        insert into entity_sys_user values (uuid(), #{userName}, #{password})
+        insert into entity_sys_user values (uuid(), now(), #{userName}, #{password})
     </insert>
 
     <select id="getAllUser" resultType="com.glf.jxframe.entity.SysUser">

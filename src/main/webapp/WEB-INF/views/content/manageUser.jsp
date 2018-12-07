@@ -34,6 +34,7 @@
         <el-table-column align="center" prop="id" label="用户id"></el-table-column>
         <el-table-column align="center" prop="userName" label="用户名"></el-table-column>
         <el-table-column align="center" prop="password" label="密码"></el-table-column>
+        <el-table-column align="center" prop="formatCreateTime" label="创建时间"></el-table-column>
         <el-table-column align="center" label="操作" width="200">
             <template slot-scope="scope">
                 <el-button type="danger" size="small">删除</el-button>
@@ -88,8 +89,7 @@
                         return (this.currentPage - 1) * this.pageSize;
                     }
                 },
-                select: function (event) {
-                    console.log(app);
+                select: function () {
                     var url = "/content/manageUser/sysUser/select";
                     var data = {
                         currentPage: app.table_sysUser.page.currentPage,
@@ -101,11 +101,42 @@
                         app.table_sysUser.data = d.list;
                         app.table_sysUser.page.total = d.total;
                         app.table_sysUser.loading = false;
+                        console.log(d);
                     })
                 },
                 insert: function () {
                     var url = "/content/manageUser/sysUser/insert";
-                    var data = this.form_add;
+                    var data = {
+                        userName: app.table_sysUser.form_add.userName,
+                        password: app.table_sysUser.form_add.password
+                    };
+                    ajaxPostJSON(url, data, function (d) {
+                        switch (d.code) {
+                            case 1:
+                                // 新建用户成功
+                                app.table_sysUser.dialog_add = false;
+                                app.$message({
+                                    message: '添加用户成功',
+                                    type: 'success'
+                                });
+                                app.table_sysUser.select();
+                                break;
+                            case 2:
+                                // 用户名或密码不能为空
+                                app.$message({
+                                    message: '用户名或密码不能为空',
+                                    type: 'error'
+                                });
+                                break;
+                            case 3:
+                                // 用户名已被注册
+                                app.$message({
+                                    message: '用户名已被注册',
+                                    type: 'error'
+                                });
+                                break;
+                        }
+                    })
                 },
                 update: function () {
 
@@ -116,7 +147,7 @@
             }
         }
     });
-    $(document).ready(function(){
+    $(document).ready(function () {
         app.table_sysUser.select();
     })
 </script>

@@ -1,6 +1,7 @@
 package com.glf.jxframe.web.content;
 
 import com.glf.jxframe.common.page.PageHelper;
+import com.glf.jxframe.common.utils.StringUtil;
 import com.glf.jxframe.dao.SysUserDao;
 import com.glf.jxframe.entity.SysUser;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,13 +29,13 @@ public class ManageUserController {
     private SysUserDao sysUserDao;
 
     @RequestMapping(value = "", method = RequestMethod.GET)
-    public String index(){
+    public String index() {
         return "content/manageUser";
     }
 
     @RequestMapping(value = "sysUser/select", method = RequestMethod.POST)
     @ResponseBody
-    public Object sysUserSelect(@RequestBody PageHelper pageHelper){
+    public Object sysUserSelect(@RequestBody PageHelper pageHelper) {
         List<SysUser> list = sysUserDao.list(pageHelper);
         int total = sysUserDao.listTotal(pageHelper);
         Map<String, Object> result = new HashMap<>();
@@ -45,13 +46,28 @@ public class ManageUserController {
 
     @RequestMapping(value = "sysUser/insert", method = RequestMethod.POST)
     @ResponseBody
-    public Object sysUserInsert(@RequestBody SysUser newSysUser){
-        return null;
+    public Object sysUserInsert(@RequestBody SysUser newSysUser) {
+        int code = 1;
+        // 检测用户名或密码是否为空
+        if (StringUtil.isNullOrEmpty(newSysUser.getUserName()) || StringUtil.isNullOrEmpty(newSysUser.getPassword())) {
+            code = 2;
+        }
+        // 检测用户名在数据库中是否已经存在
+        else if (sysUserDao.getUserByUserName(newSysUser.getUserName()).size() > 0) {
+            code = 3;
+        }
+        // 执行插入
+        if (code == 1) {
+            sysUserDao.addUser(newSysUser);
+        }
+        Map<String, Object> result = new HashMap<>();
+        result.put("code", code);
+        return result;
     }
 
     @RequestMapping(value = "test", method = RequestMethod.POST)
     @ResponseBody
-    public Object test(@RequestBody SysUser sysUser){
+    public Object test(@RequestBody SysUser sysUser) {
         return "Hello";
     }
 }
