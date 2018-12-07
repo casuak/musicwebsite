@@ -146,7 +146,7 @@
                     <span class="userHead" @click="clickUserHead">
                         <img src="/static/images/userHead.png"
                              style="border-radius: 1000px;width: 36px;height: 36px;margin-left: 10px;position: relative;bottom: 2px;"/>
-                        <span style="margin-left: 10px;font-size: 13px;">未登录</span>
+                        <span style="margin-left: 10px;font-size: 13px;">{{ userInfo.userName }}</span>
                     </span>
                     <span style="margin-left: 60px;color: gray;font-size: 17px;position:relative;top: 1px;">
                         <span class="glyphicon glyphicon-envelope"
@@ -267,26 +267,18 @@
             </div>
         </Modal>
         <Modal v-model="modal2" :footer-hide="true" title="登录" style="text-align: center" width="350">
-            <i-form inline>
-                <br><br><br><br><br><br><br><br>
-                <form-item prop="user">
-                    <i-input type="text" placeholder="Username">
-                        <icon type="ios-person-outline" slot="prepend">
-
-                        </icon>
-                    </i-input>
+            <i-form inline :rules="loginInfo._rules" :model="loginInfo">
+                <br><br>
+                <form-item label="用户名" prop="userName">
+                    <i-input type="text" placeholder="用户名" v-model="loginInfo.userName"></i-input>
                 </form-item>
                 <br>
-                <form-item prop="password">
-                    <i-input type="password" placeholder="Password">
-                        <icon type="ios-lock-outline" slot="prepend">
-
-                        </icon>
-                    </i-input>
+                <form-item label="密码" prop="password">
+                    <i-input type="password" placeholder="密码" v-model="loginInfo.password"></i-input>
                 </form-item>
                 <br><br><br>
                 <form-item>
-                    <i-button>
+                    <i-button @click="login">
                         登陆
                     </i-button>
                     <i-button @click="modal2=false;modal1=true">
@@ -334,7 +326,7 @@
             </div>
         </Modal>
         <Modal v-model="modal4" :footer-hide="true" title="个人信息" style="text-align: center" width="350">
-            <i-button @click="modal4=false">退出登陆</i-button>
+            <i-button @click="logout">退出登陆</i-button>
         </Modal>
     </div>
 </div>
@@ -382,15 +374,23 @@
                     }
                 ]
             },
-            // 当前用户
-            sysUser: {
-                isLogin: false,
-                userName: ''
-            },
+            // 当前用户信息
+            userInfo: {},
+            // 当前是否已登陆
+            isLogin: false,
             // 注册信息
             registerInfo: {
                 userName: '',
                 password: ''
+            },
+            // 登陆信息
+            loginInfo: {
+                userName: '',
+                password: '',
+                _rules: {
+                    userName: [{required: true, message: '用户名不能为空', trigger: 'blur'}],
+                    password: [{required: true, message: '密码不能为空', trigger: 'blur'}]
+                }
             },
             // 三个弹窗
             modal1: false,
@@ -443,7 +443,7 @@
             },
             // 点击用户头像或用户名
             clickUserHead: function () {
-                if (this.sysUser.isLogin) {
+                if (this.isLogin) {
                     this.modal4 = true;
                 }
                 else {
@@ -460,11 +460,66 @@
                     url: url,
                     cache: false,
                     dataType: "json",
-                    contentType : 'application/json;charset=utf-8',
+                    contentType: 'application/json;charset=utf-8',
                     success: function (d) {
-                        console.log(d);
+                        if (d.status == 1) {
+                            alert("注册成功");
+                        }
+                        else {
+                            alert("注册失败");
+                        }
                     }
                 });
+            },
+            // 检测用户名是否被注册
+            checkUserName: function () {
+
+            },
+            // 打开此框架时获取后端的初始化数据
+            checkLogin: function () {
+                var url = "login/checkLogin";
+                $.post(url, null, function (d) {
+                    if (d.isLogin) {
+                        app.userInfo = d.userInfo;
+                        app.isLogin = true;
+                    }
+                    else {
+                        app.isLogin = false;
+                        app.userInfo = { userName: '未登录' }
+                    }
+                })
+            },
+            // 登陆
+            login: function () {
+                var url = "login/login";
+                var data = JSON.stringify(this.loginInfo);
+                $.ajax({
+                    type: 'post',
+                    data: data,
+                    url: url,
+                    cache: false,
+                    dataType: "json",
+                    contentType: 'application/json;charset=utf-8',
+                    success: function (d) {
+                        if (d.status == 1) {
+                            alert("登陆成功");
+                            app.modal2 = false;
+                            app.checkLogin();
+                        }
+                        else {
+                            alert("用户名或密码错误");
+                        }
+                    }
+                });
+            },
+            // 登出
+            logout: function () {
+                var url = "login/logout";
+                $.post(url, null, function (d) {
+                    app.modal4 = false;
+                    alert("退出成功");
+                    app.checkLogin();
+                })
             },
             /* iframe中调用 */
             playSong: function (songLocation) {
@@ -476,7 +531,9 @@
             // 设置内容的初始页
             this.changeContent('content/search');
             // 设置初始音量
-            this.audio.sliderVolume = 50
+            this.audio.sliderVolume = 50;
+            // 检测当前用户是否登陆
+            this.checkLogin();
         }
     });
 
