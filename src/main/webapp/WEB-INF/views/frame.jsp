@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>网易云音乐</title>
+    <title>千寻音乐</title>
     <%@include file="/WEB-INF/views/include/blankHead.jsp" %>
     <style>
         iframe {

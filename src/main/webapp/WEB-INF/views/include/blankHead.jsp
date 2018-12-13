@@ -6,7 +6,7 @@
 <link rel="stylesheet" href="/static/iview/styles/iview.css"/>
 <link rel="stylesheet" href="/static/bootstrap-3.3.7-dist/css/bootstrap.min.css"/>
 
-<link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+<link rel="stylesheet" href="/static/element-ui@2.4.11/lib/theme-chalk/index.css">
 <link rel="stylesheet" href="/static/common/css/my-table.css">
 
 <style>

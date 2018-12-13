@@ -46,8 +46,8 @@
     </el-table>
     <el-pagination style="margin-top: 20px;float: right;"
                    layout="total, sizes, prev, pager, next, jumper"
-                   @size-change="table_sysUser.select"
-                   @current-change="table_sysUser.select"
+                   @size-change="table_sysUser.select()"
+                   @current-change="table_sysUser.select()"
                    :current-page.sync="table_sysUser.page.currentPage"
                    :page-sizes="table_sysUser.page.pageSizes"
                    :page-size.sync="table_sysUser.page.pageSize"

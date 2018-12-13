@@ -111,7 +111,7 @@ insert into entity_singer values('4', '周杰伦', '周杰伦');
 insert into entity_singer values('5', '许巍', '许巍');
 insert into entity_singer values('6', 'Westlife','Westlife');
 insert into entity_singer values('7', '郭顶', '郭顶');
-insert into entity_singer values('8', '草东没有派对');
+insert into entity_singer values('8', '草东没有派对', '草东没有派对');
 
 insert into map_song_singer values('1', '1', '1');
 insert into map_song_singer values('2', '2', '2');

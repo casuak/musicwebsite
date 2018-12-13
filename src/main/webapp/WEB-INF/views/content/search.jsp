@@ -79,39 +79,7 @@
                     <div>列表</div>
                     <div>列表</div>
                     <div>列表</div>
-                    <div>列表</div>
-                    <div>列表</div>
-                    <div>列表</div>
-                    <div>列表</div>
-                    <div>列表</div>
-                    <div>列表</div>
-                    <div>列表</div>
-                    <div>列表</div>
-                    <div>列表</div>
-                    <div>列表</div>
-                    <div>列表</div>
-                    <div>列表</div>
-                    <div>列表</div>
-                    <div>列表</div>
-                    <div>列表</div>
-                    <div>列表</div>
-                    <div>列表</div>
-                    <div>列表</div>
-                    <div>列表</div>
-                    <div>列表</div>
-                    <div>列表</div>
-                    <div>列表</div>
-                    <div>列表</div>
-                    <div>列表</div>
-                    <div>列表</div>
-                    <div>列表</div>
-                    <div>列表</div>
-                    <div>列表</div>
-                    <div>列表</div>
-                    <div>列表</div>
-                    <div>列表</div>
-                    <div>列表</div>
-                    <div>列表</div>
+
                 </div>
             </i-col>
         </row>
@@ -251,7 +219,7 @@
                 this.tables.song.data = d;
                 this.tables.song.loading = false;
             },
-            callback_getsingerList: function (d) {
+            callback_getSingerList: function (d) {
                 console.log(d);
                 // this.tables.song.data = d;
                 for (var i = 0; i < d.length; i++) {

@@ -45,7 +45,7 @@
                 <Icon type="ios-trash" /></Icon>
                 全部清空
             </i-button>
-            <i-button @click="modal1 = true">登录</i-button>
+            <%--<i-button @click="modal1 = true">登录</i-button>--%>
 
 
             <Modal v-model="modal1" title="登录" width="350">
